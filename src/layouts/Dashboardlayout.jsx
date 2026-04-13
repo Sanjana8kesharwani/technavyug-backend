@@ -73,7 +73,7 @@ const DashboardLayout = ({ children }) => {
       {/* Main Content */}
       <div className="flex-1 relative overflow-hidden bg-black text-white p-6">
 
-        {/* 🔥 SAME BACKGROUND GLOW (Home जैसा) */}
+     
         <div className="absolute inset-0 -z-10">
           <div className="w-[500px] h-[500px] bg-purple-600 opacity-30 blur-[120px] rounded-full absolute top-[-100px] left-[-100px]"></div>
           <div className="w-[500px] h-[500px] bg-blue-600 opacity-30 blur-[120px] rounded-full absolute bottom-[-100px] right-[-100px]"></div>

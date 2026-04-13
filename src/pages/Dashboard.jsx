@@ -3,7 +3,7 @@ import { Search, Bell } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
-  const navigate = useNavigate(); // ✅ FIX
+  const navigate = useNavigate();
 
   return (
     <DashboardLayout>

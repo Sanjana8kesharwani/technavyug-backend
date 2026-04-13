@@ -10,9 +10,9 @@ const AdminLogin = () => {
 
   const handleLogin = () => {
     if (email === "admin@gmail.com" && password === "1234") {
-      navigate("/dashboard"); // 🔥 redirect
+      navigate("/dashboard"); 
     } else {
-      alert("Invalid Credentials ❌");
+      alert("Invalid Credentials");
     }
   };
 
@@ -23,7 +23,7 @@ const AdminLogin = () => {
         <div className="bg-white/10 p-8 rounded-xl w-96 backdrop-blur-lg">
 
           <h2 className="text-2xl font-bold mb-6 text-center">
-            Admin Login 🔐
+            Admin Login
           </h2>
 
           <input

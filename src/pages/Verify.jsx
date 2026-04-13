@@ -9,7 +9,7 @@ const Verify = () => {
   const handleVerify = () => {
 
     if (!input) {
-      toast.error("Please enter Certificate ID ❌");
+      toast.error("Please enter Certificate ID");
       return;
     }
 
@@ -20,10 +20,10 @@ const Verify = () => {
 
     if (!cert) {
       setResult("invalid");
-      toast.error("Invalid Certificate ❌");
+      toast.error("Invalid Certificate");
     } else {
       setResult(cert);
-      toast.success("Certificate Verified ✅");
+      toast.success("Certificate Verified");
     }
   };
 
@@ -58,7 +58,7 @@ const Verify = () => {
 
           {result === "invalid" && (
             <p className="text-red-500 font-semibold">
-              Invalid Certificate ❌
+              Invalid Certificate 
             </p>
           )}
 
@@ -66,7 +66,7 @@ const Verify = () => {
             <div className="bg-white/10 backdrop-blur-lg p-6 rounded-xl border border-white/20 shadow-lg">
 
               <p className="text-green-400 font-semibold mb-2">
-                Valid Certificate ✅
+                Valid Certificate 
               </p>
 
               <p className="text-white font-bold text-lg">

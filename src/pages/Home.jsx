@@ -12,16 +12,16 @@ const Home = () => {
 
       <div className="relative overflow-hidden">
 
-        {/* 🔥 Cursor Glow */}
+        
         <CursorGlow />
 
-        {/* 🔥 Background Glow */}
+      
         <div className="absolute inset-0 -z-10">
           <div className="w-[500px] h-[500px] bg-purple-500 opacity-30 blur-[120px] rounded-full absolute top-[-100px] left-[-100px] animate-pulse"></div>
           <div className="w-[500px] h-[500px] bg-blue-500 opacity-30 blur-[120px] rounded-full absolute bottom-[-100px] right-[-100px] animate-pulse"></div>
         </div>
 
-        {/* 🚀 Hero Section */}
+        {/* Hero Section */}
         <div className="flex flex-col items-center justify-center h-[80vh] text-center">
 
           <h1 className="text-6xl font-extrabold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 animate-gradient">
@@ -50,7 +50,7 @@ const Home = () => {
 
         </div>
 
-        {/* 📊 Stats */}
+        {/* Stats */}
         <div className="flex justify-center gap-12 text-center mb-20">
 
           <div className="hover:scale-110 transition duration-300">
@@ -70,7 +70,7 @@ const Home = () => {
 
         </div>
 
-        {/* 🌟 Featured Achievers */}
+        {/* Featured Achievers */}
         <div className="px-6 mb-20">
 
           <h2 className="text-3xl font-bold text-white text-center mb-10">
@@ -93,7 +93,7 @@ const Home = () => {
 
         </div>
 
-        {/* 🤝 Trusted Section */}
+        {/* Trusted Section */}
         <div className="text-center mb-20">
           <p className="text-gray-400 mb-4">Trusted by students from</p>
 
@@ -105,7 +105,7 @@ const Home = () => {
           </div>
         </div>
 
-        {/* 💡 Why Section */}
+        {/* Why Section */}
         <div className="px-6 mb-20">
 
           <h2 className="text-3xl font-bold text-white text-center mb-10">
@@ -133,7 +133,7 @@ const Home = () => {
 
         </div>
 
-        {/* 🚀 Final CTA */}
+        {/* Final CTA */}
         <div className="text-center mb-20">
 
           <h2 className="text-3xl font-bold text-white mb-4">

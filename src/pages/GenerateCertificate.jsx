@@ -9,13 +9,13 @@ const GenerateCertificate = () => {
 
   const handleGenerate = () => {
 
-    // ❌ Validation
+    // Validation
     if (!name || !course) {
-      toast.error("Please fill all fields ❌");
+      toast.error("Please fill all fields");
       return;
     }
 
-    // 🎯 Generate ID
+    //Generate ID
     const certId = "CERT" + Math.floor(Math.random() * 10000);
 
 
@@ -29,7 +29,7 @@ existing.push({
 
 localStorage.setItem("certificates", JSON.stringify(existing));
 
-    // 🔥 Advanced Toast
+    // Advanced Toast
     toast.success(
       `Certificate Generated 🎉`,
       {
@@ -49,7 +49,7 @@ localStorage.setItem("certificates", JSON.stringify(existing));
       certId,
     });
 
-    // 🧹 Reset form
+    // Reset form
     setName("");
     setCourse("");
   };
