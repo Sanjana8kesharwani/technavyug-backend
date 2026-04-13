@@ -3,19 +3,30 @@ import { useNavigate } from "react-router-dom";
 import { users } from "../data/dummyData";
 import Card from "../components/Card";
 import CursorGlow from "../components/CursorGlow";
+import { useEffect, useState } from "react";
 
 const Home = () => {
   const navigate = useNavigate();
 
+  //  rotating words
+  const words = ["Build", "Showcase", "Verify"];
+  const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIndex((prev) => (prev + 1) % words.length);
+    }, 3500);
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <MainLayout>
-
       <div className="relative overflow-hidden">
 
-        
         <CursorGlow />
 
-      
+        {/* Background Glow */}
         <div className="absolute inset-0 -z-10">
           <div className="w-[500px] h-[500px] bg-purple-500 opacity-30 blur-[120px] rounded-full absolute top-[-100px] left-[-100px] animate-pulse"></div>
           <div className="w-[500px] h-[500px] bg-blue-500 opacity-30 blur-[120px] rounded-full absolute bottom-[-100px] right-[-100px] animate-pulse"></div>
@@ -24,8 +35,13 @@ const Home = () => {
         {/* Hero Section */}
         <div className="flex flex-col items-center justify-center h-[80vh] text-center">
 
-          <h1 className="text-6xl font-extrabold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 animate-gradient">
-            Build Your Developer Portfolio 🚀
+          <h1 className="text-6xl font-extrabold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 float">
+
+            <span key={index} className="fade-text">
+              {words[index]}
+            </span>{" "}
+            your achievements 🚀
+
           </h1>
 
           <p className="text-gray-400 text-lg mb-10 max-w-xl">
@@ -35,7 +51,7 @@ const Home = () => {
           <div className="flex gap-4">
             <button
               onClick={() => navigate("/achievements")}
-              className="px-8 py-3 rounded-xl bg-gradient-to-r from-blue-500 to-purple-600 hover:scale-105 hover:shadow-xl transition duration-300"
+              className="px-8 py-3 rounded-xl bg-gradient-to-r from-blue-500 to-purple-600 hover:scale-110 hover:shadow-xl transition duration-300"
             >
               Explore Achievers
             </button>
@@ -137,12 +153,12 @@ const Home = () => {
         <div className="text-center mb-20">
 
           <h2 className="text-3xl font-bold text-white mb-4">
-            Ready to build your portfolio?
+            Ready to build your journey?
           </h2>
 
           <button
             onClick={() => navigate("/achievements")}
-            className="px-8 py-3 rounded-xl bg-gradient-to-r from-blue-500 to-purple-600 hover:scale-105 transition shadow-lg"
+            className="px-8 py-3 rounded-xl bg-gradient-to-r from-blue-500 to-purple-600 hover:scale-110 transition shadow-lg float"
           >
             Get Started 🚀
           </button>
@@ -150,7 +166,6 @@ const Home = () => {
         </div>
 
       </div>
-
     </MainLayout>
   );
 };
