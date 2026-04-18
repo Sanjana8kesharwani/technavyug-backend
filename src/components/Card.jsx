@@ -4,16 +4,10 @@ const Card = ({ id, name, role, image }) => {
   const navigate = useNavigate();
 
   return (
-    <div
-      onClick={() => navigate(`/profile/${id}`)}
-      className="group relative rounded-2xl overflow-hidden bg-black/20 backdrop-blur-lg border border-white/10 hover:scale-105 hover:shadow-xl transition-all duration-300 cursor-pointer"
-    >
+    <div onClick={() => navigate(`/profile/${id}`)} className="group relative rounded-2xl overflow-hidden bg-black/20 backdrop-blur-lg border border-white/10 hover:scale-105 hover:shadow-xl transition-all duration-300 cursor-pointer">
+      
       {/* Image */}
-      <img
-        src={image}
-        alt={name}
-        className="w-full h-52 object-cover group-hover:scale-110 transition duration-500"
-      />
+      <img src={image} alt={name}  className="w-full h-52 object-cover group-hover:scale-110 transition duration-500"/>
 
       {/* Overlay */}
       <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent opacity-80"></div>

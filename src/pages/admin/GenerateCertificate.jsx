@@ -1,5 +1,5 @@
 import { useState } from "react";
-import DashboardLayout from "../layouts/DashboardLayout";
+import DashboardLayout from "../../layouts/DashboardLayout";
 import { Award, User } from "lucide-react";
 import toast from "react-hot-toast";
 

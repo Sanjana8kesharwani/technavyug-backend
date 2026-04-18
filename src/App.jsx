@@ -3,18 +3,22 @@ import Home from "./pages/Home";
 import Achievements from "./pages/Achievements";
 import Profile from "./pages/Profile";
 import Verify from "./pages/Verify";
-import AdminLogin from "./pages/AdminLogin";
-import Dashboard from "./pages/Dashboard";
-import AddUser from "./pages/AddUser";
+
+// ✅ Admin imports (FIXED)
+import AdminLogin from "./pages/admin/AdminLogin";
+import Dashboard from "./pages/admin/Dashboard";
+import AddUser from "./pages/admin/AddUser";
+import AddProject from "./pages/admin/AddProject";
+import GenerateCertificate from "./pages/admin/GenerateCertificate";
+
 import CursorGlow from "./components/CursorGlow";
-import AddProject from "./pages/AddProject";
-import GenerateCertificate from "./pages/GenerateCertificate";
 import { Toaster } from "react-hot-toast";
 
 function App() {
   return (
     <BrowserRouter>
       <CursorGlow />
+
       <Toaster
         position="top-right"
         toastOptions={{
@@ -27,15 +31,18 @@ function App() {
       />
 
       <Routes>
+        {/* 🌍 Public Routes */}
         <Route path="/" element={<Home />} />
         <Route path="/achievements" element={<Achievements />} />
         <Route path="/profile/:id" element={<Profile />} />
         <Route path="/verify" element={<Verify />} />
+
+        {/* 🔐 Admin Routes (UPDATED) */}
         <Route path="/admin" element={<AdminLogin />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/add-user" element={<AddUser />} />
-        <Route path="/add-project" element={<AddProject />} />
-        <Route path="/generate" element={<GenerateCertificate />} />
+        <Route path="/admin/dashboard" element={<Dashboard />} />
+        <Route path="/admin/add-user" element={<AddUser />} />
+        <Route path="/admin/add-project" element={<AddProject />} />
+        <Route path="/admin/generate" element={<GenerateCertificate />} />
       </Routes>
     </BrowserRouter>
   );
