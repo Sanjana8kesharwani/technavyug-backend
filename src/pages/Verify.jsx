@@ -13,7 +13,7 @@ const Verify = () => {
       return;
     }
 
-    //  Get from localStorage (REAL DATA)
+
     const data = JSON.parse(localStorage.getItem("certificates")) || [];
 
     const cert = data.find((c) => c.id === input);
@@ -36,24 +36,12 @@ const Verify = () => {
           Verify Certificate 🔍
         </h1>
 
-        {/* Input */}
-        <input
-          type="text"
-          placeholder="Enter Certificate ID"
-          className="px-5 py-3 rounded-xl bg-white/10 border border-white/20 text-white mb-4 w-80 outline-none"
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-        />
-
-        {/* Button */}
-        <button
-          onClick={handleVerify}
-          className="bg-gradient-to-r from-blue-500 to-purple-600 px-6 py-3 rounded-xl hover:scale-105 transition shadow-lg text-white"
-        >
-          Verify
-        </button>
-
-        {/* Result */}
+       
+        <input type="text" placeholder="Enter Certificate ID" className="px-5 py-3 rounded-xl bg-white/10 border border-white/20 text-white mb-4 w-80 outline-none" value={input}  onChange={(e) => setInput(e.target.value)}/>
+         
+      
+        <button onClick={handleVerify} className="bg-gradient-to-r from-blue-500 to-purple-600 px-6 py-3 rounded-xl hover:scale-105 transition shadow-lg text-white"> Verify  </button>
+  
         <div className="mt-8 text-center">
 
           {result === "invalid" && (

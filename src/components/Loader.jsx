@@ -4,19 +4,13 @@ const Loader = () => {
 
       <div className="flex flex-col items-center gap-4">
 
-        {/* 🔥 Logo */}
+       
         <div className="w-16 h-16 rounded-full overflow-hidden border border-white/20 animate-pulse">
-          <img
-            src="/Technavyug Logo.jpeg"
-            className="w-full h-full object-cover"
-          />
+          <img src="/Technavyug Logo.jpeg" className="w-full h-full object-cover"/>
         </div>
 
-        {/* 🔥 Text */}
-        <p className="text-white text-sm tracking-wide">
-          Loading Technavyug...
-        </p>
 
+        <p className="text-white text-sm tracking-wide">Loading Technavyug...</p>
       </div>
 
     </div>
