@@ -4,6 +4,9 @@ import StatsSection from "../components/home/StatsSection";
 import ProjectsSection from "../components/home/ProjectsSection";
 import VerifySection from "../components/home/VerifySection";
 import CertificatesSection from "../components/home/CertificatesSection";
+import TopAchievers from "../components/home/TopAchieversSection";
+import PartnersSection from "../components/home/PartnersSection";
+
 
 const Home = () => {
   return (
@@ -14,6 +17,10 @@ const Home = () => {
 
       {/* STATS */}
       <StatsSection />
+
+      <PartnersSection /> 
+
+       <TopAchievers /> 
 
       {/* PROJECTS */}
       <ProjectsSection />

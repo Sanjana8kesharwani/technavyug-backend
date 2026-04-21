@@ -13,7 +13,7 @@ const Verify = () => {
       return;
     }
 
-    // 🔥 Get from localStorage (REAL DATA)
+    //  Get from localStorage (REAL DATA)
     const data = JSON.parse(localStorage.getItem("certificates")) || [];
 
     const cert = data.find((c) => c.id === input);

@@ -18,12 +18,12 @@ const projects = [
 
 const ProjectsSection = () => {
   return (
-    <section className="pt-40 pb-28 px-6 bg-[#f8fafc] overflow-hidden">
+    <section className="pt-40 pb-28 px-6 bg-white overflow-hidden">
 
       <div className="max-w-6xl mx-auto">
 
         {/* TITLE */}
-        <h2 className="text-4xl font-bold text-center mb-16 text-blue-400">
+        <h2 className="text-4xl font-bold text-center mb-16 text-black-400">
           Featured Projects
         </h2>
 
