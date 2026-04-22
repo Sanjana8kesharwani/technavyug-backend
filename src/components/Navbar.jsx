@@ -46,10 +46,8 @@ const Navbar = ({ setOpen }) => {
             />
           </div>
 
-          <h1 className="text-base md:text-lg font-semibold text-gray-800">
-            Technavyug
-          </h1>
-
+          <h1 className="text-base md:text-xl font-semibold text-black">
+            Tech<span className="text-cyan-500">navyug</span> </h1>
         </div>
 
         {/* CENTER MENU */}
