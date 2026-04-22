@@ -38,7 +38,9 @@ const StatsSection = () => {
       </div>
 
       {/* FLOATING CARD (FIXED POSITION) */}
-      <div className="absolute left-1/2 -translate-x-1/2 bottom-0 translate-y-1/2 w-[90%] md:w-[70%] bg-blue-900 rounded-xl p-8 shadow-xl">
+      <div className="absolute left-1/2 -translate-x-1/2 bottom-0 translate-y-1/2 
+w-[95%] md:w-[90%] max-w-[1200px] 
+bg-blue-900 rounded-xl p-8 shadow-xl">
 
         <div className="grid grid-cols-3 text-center">
 
