@@ -6,6 +6,7 @@ import VerifySection from "../components/home/VerifySection";
 import CertificatesSection from "../components/home/CertificatesSection";
 import TopAchievers from "../components/home/TopAchieversSection";
 import PartnersSection from "../components/home/PartnersSection";
+import EventsSection from "../components/home/EventsSection";
 
 
 
@@ -16,10 +17,12 @@ const Home = () => {
 
       <Hero />
       <StatsSection />
+      <VerifySection />
       <PartnersSection /> 
+      <EventsSection /> 
        <TopAchievers /> 
       <ProjectsSection />
-      <VerifySection />
+      
       <CertificatesSection />
       
 
