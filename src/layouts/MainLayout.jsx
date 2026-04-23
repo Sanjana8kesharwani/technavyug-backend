@@ -7,16 +7,21 @@ const MainLayout = ({ children }) => {
   const [open, setOpen] = useState(false);
 
   return (
-    <div>
+    <div className="flex flex-col min-h-screen">
 
+      {/* Navbar */}
       <Navbar setOpen={setOpen} />
+
+      {/* Sidebar */}
       <Sidebar open={open} setOpen={setOpen} />
 
-      <div className="pt-24">
+      {/* Main Content */}
+      <main className="flex-1 pt-24">
         {children}
+      </main>
 
-        <Footer />
-      </div>
+      {/* Footer always bottom */}
+      <Footer />
 
     </div>
   );

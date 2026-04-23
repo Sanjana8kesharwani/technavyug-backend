@@ -3,7 +3,7 @@ import { LuLinkedin, LuInstagram, LuMail, LuYoutube } from "react-icons/lu";
 
 const Footer = () => {
   return (
-    <footer className="bg-[#0b0f1a] text-gray-400 mt-20">
+    <footer className="bg-[#0b0f1a] text-gray-400">
 
       <div className="max-w-7xl mx-auto px-6 py-16">
 
@@ -55,7 +55,7 @@ const Footer = () => {
           <div>
             <h3 className="text-white font-semibold mb-4">Support</h3>
             <ul className="space-y-2 text-sm">
-              <li><Link to="/contact" className="hover:text-cyan-400">Contact</Link></li>
+              <li><Link to="/contact" className="hover:text-cyan-400"> Contact</Link></li>
               <li>
                 <a href="https://www.technavyug.com/" target="_blank" rel="noreferrer" className="hover:text-cyan-400">
                   Official Website

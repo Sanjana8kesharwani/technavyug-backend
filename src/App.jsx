@@ -5,8 +5,9 @@ import Profile from "./pages/Profile";
 import Verify from "./pages/Verify";
 import PrivacyPolicy from "./pages/PrivacyPolicies";
 import TermsConditions from "./pages/TermsConditions";
+import Contact from "./pages/Contact";
 
-// ✅ Admin imports (FIXED)
+// Admin imports (FIXED)
 import AdminLogin from "./pages/admin/AdminLogin";
 import Dashboard from "./pages/admin/Dashboard";
 import AddUser from "./pages/admin/AddUser";
@@ -41,6 +42,7 @@ function App() {
         <Route path="/verify" element={<Verify />} />
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         <Route path="/terms" element={<TermsConditions />} />
+        <Route path="/contact" element={<Contact />} />
 
         {/* 🔐 Admin Routes (UPDATED) */}
         <Route path="/admin" element={<AdminLogin />} />
