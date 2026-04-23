@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { LuMail, LuPhone, LuMapPin, LuSend } from "react-icons/lu";
-import MainLayout from "../layouts/MainLayout"; // 🔥 IMPORTANT
+import MainLayout from "../layouts/MainLayout";
 
 export default function Contact() {
   const [form, setForm] = useState({
@@ -44,7 +44,7 @@ export default function Contact() {
   ];
 
   return (
-    <MainLayout> {/* 🔥 YAHI MAGIC HAI */}
+    <MainLayout> 
 
       {/* HEADER */}
       <section className="py-20 bg-gradient-to-br from-slate-50 to-cyan-50/30 text-center">
@@ -82,58 +82,67 @@ export default function Contact() {
       </section>
 
       {/* FORM */}
+     
       <section className="py-12 bg-white">
         <div className="max-w-2xl mx-auto px-6">
 
-          <h2 className="text-2xl font-bold text-center mb-6">
-            Send Message
+          <h2 className="text-2xl font-bold text-center mb-2">
+            Send Us a Message
           </h2>
+          <p className="text-center text-gray-500 mb-8">
+            Fill out the form below and we will get back to you shortly.
+          </p>
 
           <form onSubmit={handleSubmit} className="space-y-4">
 
-            <input
-              required
-              placeholder="Your Name"
-              value={form.name}
-              onChange={(e) =>
-                setForm({ ...form, name: e.target.value })
-              }
-              className="w-full px-4 py-3 border rounded-lg"
-            />
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+                <input
+                  required
+                  placeholder="John Doe"
+                  value={form.name}
+                  onChange={(e) => setForm({ ...form, name: e.target.value })}
+                  className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-cyan-400"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                <input
+                  type="email"
+                  required
+                  placeholder="you@example.com"
+                  value={form.email}
+                  onChange={(e) => setForm({ ...form, email: e.target.value })}
+                  className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-cyan-400"
+                />
+              </div>
+            </div>
 
-            <input
-              type="email"
-              required
-              placeholder="Your Email"
-              value={form.email}
-              onChange={(e) =>
-                setForm({ ...form, email: e.target.value })
-              }
-              className="w-full px-4 py-3 border rounded-lg"
-            />
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Subject</label>
+              <input
+                required
+                placeholder="How can we help?"
+                value={form.subject}
+                onChange={(e) => setForm({ ...form, subject: e.target.value })}
+                className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-cyan-400"
+              />
+            </div>
 
-            <input
-              required
-              placeholder="Subject"
-              value={form.subject}
-              onChange={(e) =>
-                setForm({ ...form, subject: e.target.value })
-              }
-              className="w-full px-4 py-3 border rounded-lg"
-            />
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Message</label>
+              <textarea
+                required
+                rows={5}
+                placeholder="Tell us more about your query..."
+                value={form.message}
+                onChange={(e) => setForm({ ...form, message: e.target.value })}
+                className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-cyan-400"
+              />
+            </div>
 
-            <textarea
-              required
-              rows={4}
-              placeholder="Your Message"
-              value={form.message}
-              onChange={(e) =>
-                setForm({ ...form, message: e.target.value })
-              }
-              className="w-full px-4 py-3 border rounded-lg"
-            />
-
-            <button className="w-full bg-black text-white py-3 rounded-lg flex items-center justify-center gap-2">
+            <button className="w-full bg-gray-900 text-white py-3 rounded-xl flex items-center justify-center gap-2 hover:bg-gray-700 transition">
               <LuSend />
               Send Message
             </button>
