@@ -52,12 +52,12 @@ const Navbar = ({ setOpen }) => {
         {/* CENTER MENU */}
        <div className="hidden md:flex gap-10 text-base md:text-lg font-medium text-gray-700">
 
-  <Link to="/" className="hover:text-blue-500 transition">Home</Link>
-  <Link to="/about" className="hover:text-blue-500 transition">About</Link>
-  <Link to="/projects" className="hover:text-blue-500 transition">Projects</Link>
-  <Link to="/achievements" className="hover:text-blue-500 transition">Achievements</Link>
-  <Link to="/verify" className="hover:text-blue-500 transition">Verify</Link>
-  <Link to="/contact" className="hover:text-blue-500 transition">Contact</Link>
+  <Link to="/" className="hover:text-cyan-500 transition">Home</Link>
+  <Link to="/about" className="hover:text-cyan-500 transition">About</Link>
+  <Link to="/projects" className="hover:text-cyan-500 transition">Projects</Link>
+  <Link to="/achievements" className="hover:text-cyan-500 transition">Achievements</Link>
+  <Link to="/verify" className="hover:text-cyan-500 transition">Verify</Link>
+  <Link to="/contact" className="hover:text-cyan-500 transition">Contact</Link>
 
 </div>
 
@@ -66,12 +66,12 @@ const Navbar = ({ setOpen }) => {
 
           <Link
             to="/admin"
-            className="px-4 py-2 rounded-full border border-blue-300 text-gray-700 hover:bg-blue-100 transition text-sm"
+            className="px-4 py-2 rounded-full border border-blue-300 text-gray-700 hover:bg-cyan-100 transition text-sm"
           >
             Login
           </Link>
 
-          <button className="bg-gradient-to-r from-blue-500 to-purple-600 text-white px-4 md:px-5 py-2 rounded-full hover:scale-105 transition shadow-md text-sm">
+          <button className="bg-gradient-to-r from-blue-500 to-cyan-600 text-white px-4 md:px-5 py-2 rounded-full hover:scale-105 transition shadow-md text-sm">
             Get Started
           </button>
 

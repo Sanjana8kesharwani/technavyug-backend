@@ -15,7 +15,7 @@ const Footer = () => {
               
               <img src="/Technavyug Logo.jpeg" alt="logo" className="h-8 w-auto" />
 
-              <span className="text-xl font-bold text-white"> Tech<span className="text-blue-500">navyug</span>
+              <span className="text-xl font-bold text-white"> Tech<span className="text-cyan-500">navyug</span>
               </span>
             </Link>
 
@@ -26,15 +26,15 @@ const Footer = () => {
 
             
             <div className="flex gap-3">
-              <a href="https://www.youtube.com/@technavyugofficial" target="_blank" rel="noreferrer" className="p-2 bg-white/5 rounded-lg hover:bg-blue-600 hover:text-white transition">
+              <a href="https://www.youtube.com/@technavyugofficial" target="_blank" rel="noreferrer" className="p-2 bg-white/5 rounded-lg hover:bg-cyan-600 hover:text-white transition">
                 <LuYoutube />
               </a>
 
-              <a href="https://www.linkedin.com/company/technavyug/posts/?feedView=all" target="_blank" rel="noreferrer" className="p-2 bg-white/5 rounded-lg hover:bg-blue-600 hover:text-white transition">
+              <a href="https://www.linkedin.com/company/technavyug/posts/?feedView=all" target="_blank" rel="noreferrer" className="p-2 bg-white/5 rounded-lg hover:bg-cyan-600 hover:text-white transition">
                 <LuLinkedin />
               </a>
 
-              <a href="https://www.instagram.com/technavyug/" target="_blank" rel="noreferrer" className="p-2 bg-white/5 rounded-lg hover:bg-blue-600 hover:text-white transition">
+              <a href="https://www.instagram.com/technavyug/" target="_blank" rel="noreferrer" className="p-2 bg-white/5 rounded-lg hover:bg-cyan-600 hover:text-white transition">
                 <LuInstagram />
               </a>
             </div>
@@ -44,10 +44,10 @@ const Footer = () => {
           <div>
             <h3 className="text-white font-semibold mb-4">Platform</h3>
             <ul className="space-y-2 text-sm">
-              <li><Link to="/" className="hover:text-blue-400">Home</Link></li>
-              <li><Link to="/projects" className="hover:text-blue-400">Projects</Link></li>
-              <li><Link to="/achievements" className="hover:text-blue-400">Achievements</Link></li>
-              <li><Link to="/verify" className="hover:text-blue-400">Verify</Link></li>
+              <li><Link to="/" className="hover:text-cyan-400">Home</Link></li>
+              <li><Link to="/projects" className="hover:text-cyan-400">Projects</Link></li>
+              <li><Link to="/achievements" className="hover:text-cyan-400">Achievements</Link></li>
+              <li><Link to="/verify" className="hover:text-cyan-400">Verify</Link></li>
             </ul>
           </div>
 
@@ -55,13 +55,13 @@ const Footer = () => {
           <div>
             <h3 className="text-white font-semibold mb-4">Support</h3>
             <ul className="space-y-2 text-sm">
-              <li><Link to="/contact" className="hover:text-blue-400">Contact</Link></li>
+              <li><Link to="/contact" className="hover:text-cyan-400">Contact</Link></li>
               <li>
-                <a href="https://www.technavyug.com/" target="_blank" rel="noreferrer" className="hover:text-blue-400">
+                <a href="https://www.technavyug.com/" target="_blank" rel="noreferrer" className="hover:text-cyan-400">
                   Official Website
                 </a>
               </li>
-              <li><Link to="/" className="hover:text-blue-400">Privacy Policy</Link></li>
+              <li><Link to="/" className="hover:text-cyan-400">Privacy Policy</Link></li>
             </ul>
           </div>
 
@@ -72,10 +72,10 @@ const Footer = () => {
 
           <p>© {new Date().getFullYear()} Technavyug. All rights reserved.</p>
 
-          <div className="flex items-center gap-2 mt-4 md:mt-0">
-            <LuMail />
-            <span>support@technavyug.com</span>
-          </div>
+          <div className="flex items-center gap-2 mt-4 md:mt-0 text-gray-600 hover:text-cyan-500 transition cursor-pointer">
+          <LuMail />
+          <span>support@technavyug.com</span>
+        </div>
 
         </div>
 
