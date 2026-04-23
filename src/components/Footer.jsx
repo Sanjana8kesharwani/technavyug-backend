@@ -61,7 +61,7 @@ const Footer = () => {
                   Official Website
                 </a>
               </li>
-              <li><Link to="/" className="hover:text-cyan-400">Privacy Policy</Link></li>
+              <li><Link to="/privacy-policy" className="hover:text-cyan-400">Privacy Policy</Link></li>
             </ul>
           </div>
 
