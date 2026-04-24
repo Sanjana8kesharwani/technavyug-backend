@@ -1,7 +1,7 @@
 import { useState } from "react";
-import DashboardLayout from "../layouts/DashboardLayout";
-import Card from "../components/Card";
-import { users } from "../data/dummyData";
+import DashboardLayout from "../../layouts/DashboardLayout";
+import Card from "../../components/Card";
+import { users } from "../../data/dummyData";
 
 const Achievements = () => {
   const [search, setSearch] = useState("");
@@ -22,7 +22,7 @@ const Achievements = () => {
       <div className="px-4 md:px-10">
 
         <h1 className="text-3xl font-bold mb-6 text-white text-center">
-          🚀 Top Achievers
+          Top Achievers
         </h1>
 
         {/* Search */}
