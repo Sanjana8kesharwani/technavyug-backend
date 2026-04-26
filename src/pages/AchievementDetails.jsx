@@ -38,7 +38,8 @@ export default function AchievementDetails() {
   const { id } = useParams();
   const [loading, setLoading] = useState(true);
 
-  const user = achievements.find((a) => a.id === id);
+  // ✅ FIX 1: String comparison so "1" === 1 works
+  const user = achievements.find((a) => String(a.id) === id);
 
   useEffect(() => {
     const timer = setTimeout(() => setLoading(false), 1500);
@@ -67,12 +68,11 @@ export default function AchievementDetails() {
     <MainLayout>
       <div className="pt-16">
 
-        {/*  HERO */}
+        {/* HERO */}
         <div className="bg-[#1B3765] text-white px-6 py-16">
           <div className="max-w-6xl mx-auto flex flex-col md:flex-row gap-10 items-center">
 
             <div className="flex-1">
-
               <span className="inline-block border border-white/50 text-xs px-4 py-1.5 rounded-full mb-4">
                 {user.domain}
               </span>
@@ -85,9 +85,8 @@ export default function AchievementDetails() {
                 {user.bio}
               </p>
 
-              {/*  SOCIAL BUTTONS */}
+              {/* SOCIAL BUTTONS */}
               <div className="flex gap-4 flex-wrap">
-
                 {user.linkedin && (
                   <a
                     href={user.linkedin}
@@ -111,9 +110,7 @@ export default function AchievementDetails() {
                     GitHub
                   </a>
                 )}
-
               </div>
-
             </div>
 
             <div className="w-full md:w-[420px] rounded-2xl overflow-hidden shadow-2xl">
@@ -127,7 +124,7 @@ export default function AchievementDetails() {
           </div>
         </div>
 
-        {/*  BODY */}
+        {/* BODY */}
         <div className="max-w-6xl mx-auto px-6 py-10">
 
           {/* OVERVIEW */}
@@ -138,8 +135,8 @@ export default function AchievementDetails() {
             </div>
           )}
 
-          {/* HIGHLIGHTS */}
-          {user.highlights && (
+          {/* ✅ FIX 2: highlights sirf ek baar, optional chaining ke saath */}
+          {user.highlights?.length > 0 && (
             <div className="mb-10">
               <h2 className="text-xl font-bold mb-4">Key Achievements</h2>
               <ul className="list-disc pl-6 text-gray-600 space-y-2">
@@ -150,29 +147,28 @@ export default function AchievementDetails() {
             </div>
           )}
 
-          {/* SKILLS */}
-          <div className="mb-10">
-            <h2 className="text-xl font-bold mb-4">Skills</h2>
-            <div className="flex flex-wrap gap-3">
-              {user.skills.map((skill, i) => (
-                <span
-                  key={i}
-                  className="px-4 py-2 bg-gray-200 rounded-full text-sm"
-                >
-                  {skill}
-                </span>
-              ))}
+          {/* ✅ FIX 3: skills optional chaining */}
+          {user.skills?.length > 0 && (
+            <div className="mb-10">
+              <h2 className="text-xl font-bold mb-4">Skills</h2>
+              <div className="flex flex-wrap gap-3">
+                {user.skills.map((skill, i) => (
+                  <span key={i} className="px-4 py-2 bg-gray-200 rounded-full text-sm">
+                    {skill}
+                  </span>
+                ))}
+              </div>
             </div>
-          </div>
+          )}
 
-          {/* PROJECTS */}
-          {user.projects && (
+          {/* ✅ FIX 4: projects optional chaining */}
+          {user.projects?.length > 0 && (
             <div className="mb-10">
               <h2 className="text-xl font-bold mb-4">Projects</h2>
               <div className="grid md:grid-cols-3 gap-6">
                 {user.projects.map((p, i) => (
                   <div key={i} className="rounded-xl shadow overflow-hidden">
-                    <img src={p.image} className="w-full h-40 object-cover" />
+                    <img src={p.image} className="w-full h-40 object-cover" alt={p.title} />
                     <div className="p-4">
                       <h3 className="font-semibold">{p.title}</h3>
                       <p className="text-sm text-gray-600">{p.description}</p>
@@ -183,14 +179,14 @@ export default function AchievementDetails() {
             </div>
           )}
 
-          {/* CERTIFICATES */}
-          {user.certificates && (
+          {/* ✅ FIX 5: certificates optional chaining */}
+          {user.certificates?.length > 0 && (
             <div className="mb-10">
               <h2 className="text-xl font-bold mb-4">Certificates</h2>
               <div className="grid md:grid-cols-3 gap-6">
                 {user.certificates.map((c, i) => (
                   <div key={i} className="rounded-xl overflow-hidden shadow">
-                    <img src={c.image} className="w-full h-40 object-cover" />
+                    <img src={c.image} className="w-full h-40 object-cover" alt={c.title} />
                     <div className="p-3 text-sm">{c.title}</div>
                   </div>
                 ))}
@@ -199,7 +195,6 @@ export default function AchievementDetails() {
           )}
 
         </div>
-
       </div>
     </MainLayout>
   );
