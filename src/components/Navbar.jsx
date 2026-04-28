@@ -48,6 +48,7 @@ const Navbar = ({ setOpen }) => {
   <Link to="/about" className="hover:text-cyan-500 transition">About</Link>
   <Link to="/projects" className="hover:text-cyan-500 transition">Projects</Link>
   <Link to="/achievements" className="hover:text-cyan-500 transition">Achievements</Link>
+  <Link to="/events-media" className="hover:text-cyan-500 transition">Events & Media</Link>
   <Link to="/verify" className="hover:text-cyan-500 transition">Verify</Link>
   <Link to="/contact" className="hover:text-cyan-500 transition">Contact</Link>
 

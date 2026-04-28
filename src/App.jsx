@@ -11,6 +11,7 @@ import ProjectDetails from "./pages/ProjectDetails";
 import AchievementsPage from "./pages/AchievementsPage";
 import AchievementDetails from "./pages/AchievementDetails";
 import Team from "./pages/Team";
+import EventsMedia from "./pages/EventsMedia";
 
 
 // Admin imports (FIXED)
@@ -55,6 +56,8 @@ function App() {
          <Route path="/achievements" element={<AchievementsPage />} /> 
         <Route path="/achievements/:id" element={<AchievementDetails />} />
         <Route path="/team" element={<Team />} />
+        <Route path="/events-media" element={<EventsMedia />} />
+
 
         {/* 🔐 Admin Routes (UPDATED) */}
         <Route path="/admin" element={<AdminLogin />} />
