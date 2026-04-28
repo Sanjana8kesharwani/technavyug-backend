@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import MainLayout from "../layouts/MainLayout";
 import EventsSection from "../components/events/EventsSection";
 import MediaGallery from "../components/events/MediaGallery";
+import LatestNews from "../components/events/LatestNews";
 
 export default function EventsMedia() {
   const tabs = [
@@ -137,9 +138,7 @@ export default function EventsMedia() {
           )}
 
           {/* OTHER TABS */}
-          {activeTab === "Latest News & Updates" && (
-            <div className="text-center">News coming soon...</div>
-          )}
+          {activeTab === "Latest News & Updates" && <LatestNews />}
 
           {activeTab === "Newsletters" && (
             <div className="text-center">Newsletters coming soon...</div>
