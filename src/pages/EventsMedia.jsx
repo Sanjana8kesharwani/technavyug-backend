@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import MainLayout from "../layouts/MainLayout";
 import EventsSection from "../components/events/EventsSection";
+import MediaGallery from "../components/events/MediaGallery";
 
 export default function EventsMedia() {
   const tabs = [
@@ -32,35 +33,35 @@ export default function EventsMedia() {
 
   const index = map[activeTab] ?? 0;
 
-  // TYPEWRITER EFFECT 
+  // TYPEWRITER EFFECT
   useEffect(() => {
-  const currentWord = words[index];
-  let timeout;
+    const currentWord = words[index];
+    let timeout;
 
-  if (!isDeleting) {
-    if (displayText.length < currentWord.length) {
-      timeout = setTimeout(() => {
-        setDisplayText(currentWord.slice(0, displayText.length + 1));
-      }, 120);
+    if (!isDeleting) {
+      if (displayText.length < currentWord.length) {
+        timeout = setTimeout(() => {
+          setDisplayText(currentWord.slice(0, displayText.length + 1));
+        }, 120);
+      } else {
+        timeout = setTimeout(() => {
+          setIsDeleting(true);
+        }, 800);
+      }
     } else {
-      timeout = setTimeout(() => {
-        setIsDeleting(true);
-      }, 800);
+      if (displayText.length > 0) {
+        timeout = setTimeout(() => {
+          setDisplayText(currentWord.slice(0, displayText.length - 1));
+        }, 60);
+      } else {
+        timeout = setTimeout(() => {
+          setIsDeleting(false);
+        }, 200);
+      }
     }
-  } else {
-    if (displayText.length > 0) {
-      timeout = setTimeout(() => {
-        setDisplayText(currentWord.slice(0, displayText.length - 1));
-      }, 60);
-    } else {
-      timeout = setTimeout(() => {
-        setIsDeleting(false);
-      }, 200);
-    }
-  }
 
-  return () => clearTimeout(timeout);
-}, [displayText, isDeleting, index]);
+    return () => clearTimeout(timeout);
+  }, [displayText, isDeleting, index]);
 
   return (
     <MainLayout>
@@ -79,7 +80,6 @@ export default function EventsMedia() {
             On <span className="text-black">Tech</span>
             <span className="text-cyan-500">navyug</span>{" "}
 
-            {/*  KEY RESET TRICK */}
             <span
               key={activeTab}
               className="text-cyan-500 inline-block min-w-[90px]"
@@ -123,14 +123,30 @@ export default function EventsMedia() {
         {/* CONTENT */}
         <div className="max-w-7xl mx-auto px-4 md:px-6 py-12">
 
-          {activeTab === "Events" && <EventsSection />}
+          {/* EVENTS */}
+          {activeTab === "Events" && <EventsSection key="events" />}
 
+          {/* MEDIA GALLERY ✅ FIXED */}
           {activeTab === "Media Gallery" && (
-            <div className="text-center">Gallery coming soon...</div>
+            <MediaGallery key="gallery" />
           )}
 
+          {/* BLOGS */}
           {activeTab === "Blogs" && (
             <div className="text-center">Blogs coming soon...</div>
+          )}
+
+          {/* OTHER TABS */}
+          {activeTab === "Latest News & Updates" && (
+            <div className="text-center">News coming soon...</div>
+          )}
+
+          {activeTab === "Newsletters" && (
+            <div className="text-center">Newsletters coming soon...</div>
+          )}
+
+          {activeTab === "Gallery Videos" && (
+            <div className="text-center">Videos coming soon...</div>
           )}
 
         </div>

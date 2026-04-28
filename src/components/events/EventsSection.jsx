@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-/* 🔥 SHIMMER CARD */
+/* SHIMMER CARD */
 const ShimmerCard = () => {
   return (
     <div className="bg-white rounded-xl shadow-md overflow-hidden">
@@ -15,7 +15,7 @@ const ShimmerCard = () => {
   );
 };
 
-/* 🔥 DATA */
+/*  DATA */
 const events = {
   upcoming: [],
   previous: [
@@ -40,7 +40,7 @@ export default function EventsSection() {
   const [tab, setTab] = useState("upcoming");
   const [loading, setLoading] = useState(true);
 
-  /* ✅ CLEAN LOADING (NO WARNING) */
+  /*  CLEAN LOADING */
   useEffect(() => {
     if (!loading) return;
 
@@ -51,7 +51,7 @@ export default function EventsSection() {
     return () => clearTimeout(timer);
   }, [loading]);
 
-  /* ✅ TAB CHANGE HANDLER */
+  /* TAB CHANGE HANDLER */
   const handleTabChange = (newTab) => {
     setTab(newTab);
     setLoading(true);
@@ -59,16 +59,14 @@ export default function EventsSection() {
 
   return (
     <div className="flex flex-col lg:flex-row gap-8">
+      
 
-      {/* 🔥 SIDEBAR */}
+      {/* SIDEBAR */}
       <div className="w-full lg:w-72 bg-gray-50 p-4 rounded-xl shadow-sm">
 
         <h3 className="text-sm font-semibold mb-4">Filters</h3>
 
-        <input
-          placeholder="Enter Event"
-          className="w-full px-3 py-2 border rounded mb-3 text-sm"
-        />
+        <input placeholder="Enter Event" className="w-full px-3 py-2 border rounded mb-3 text-sm"/>
 
         <select className="w-full px-3 py-2 border rounded mb-4 text-sm">
           <option>Zone</option>
@@ -112,14 +110,20 @@ export default function EventsSection() {
         </div>
       </div>
 
-      {/* 🔥 RIGHT SIDE */}
+      {/* RIGHT SIDE */}
       <div className="flex-1">
 
-        <h2 className="text-2xl font-bold text-center mb-6">
-          Events
-        </h2>
+        <div className="text-center mb-10">
+  <h2 className="text-4xl font-bold text-gray-900">
+    Events
+  </h2>
 
-        {/* 🔥 TABS */}
+  <svg  className="mx-auto mt-2" width="160" height="20" viewBox="0 0 160 20" fill="none"> 
+    <path d="M10 8 Q80 0 150 8" stroke="#06b6d4" strokeWidth="3" strokeLinecap="round" fill="none"></path>
+  </svg>
+</div>
+
+        {/*  TABS */}
         <div className="flex justify-center gap-6 mb-6">
           <button
             onClick={() => handleTabChange("upcoming")}
@@ -144,7 +148,7 @@ export default function EventsSection() {
           </button>
         </div>
 
-        {/* 🔥 CONTENT */}
+        {/* CONTENT */}
         {loading ? (
           <div className="grid sm:grid-cols-2 gap-6">
             {[...Array(4)].map((_, i) => (
@@ -159,16 +163,10 @@ export default function EventsSection() {
         ) : (
           <div className="grid sm:grid-cols-2 gap-6">
             {events[tab].map((event, i) => (
-              <div
-                key={i}
-                className="bg-white rounded-xl shadow-md overflow-hidden"
-              >
-                <img
-                  src={event.image}
-                  alt="event"
-                  className="h-44 w-full object-cover"
-                />
+              <div key={i} className="bg-white rounded-xl shadow-md overflow-hidden">
 
+                <img src={event.image} alt="event"  className="h-44 w-full object-cover"/>
+          
                 <div className="p-4">
                   <h3 className="font-semibold">{event.title}</h3>
 
