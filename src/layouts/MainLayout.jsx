@@ -17,7 +17,7 @@ const MainLayout = ({ children }) => {
       <Sidebar open={open} setOpen={setOpen} />
 
   
-      <main className="flex-5">
+      <main className="flex-grow">
         {children}
       </main>
 

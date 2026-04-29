@@ -61,7 +61,7 @@ function App() {
         <Route path="/achievements/:id" element={<AchievementDetails />} />
         <Route path="/team" element={<Team />} />
         <Route path="/events-media" element={<EventsMedia />} />
-          <Route path="/blog/:id" element={<BlogDetails />} />
+        <Route path="/blog/:id" element={<BlogDetails />} />
 
 
         {/* 🔐 Admin Routes (UPDATED) */}

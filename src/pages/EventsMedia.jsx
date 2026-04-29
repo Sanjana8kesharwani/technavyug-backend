@@ -101,11 +101,11 @@ export default function EventsMedia() {
         </section>
 
         {/* TABS */}
-        <div className="flex justify-center mt-8 px-4">
+        <div className="flex justify-center mt-8 px-8">
           <div className="bg-gray-100 rounded-full p-2 md:p-3 flex gap-2 md:gap-3 shadow overflow-x-auto">
 
             {tabs.map((tab) => (
-              <button key={tab} onClick={() => setActiveTab(tab)} className={`px-4 md:px-6 py-2 md:py-3 text-sm md:text-base rounded-full whitespace-nowrap ${
+              <button key={tab} onClick={() => setActiveTab(tab)} className={`px-8 md:px-6 py-2 md:py-3 text-sm md:text-base rounded-full whitespace-nowrap ${
                  activeTab === tab  ? "bg-cyan-500 text-white" : "text-gray-600 hover:bg-gray-200"}`}>
                 {tab}
               </button>
