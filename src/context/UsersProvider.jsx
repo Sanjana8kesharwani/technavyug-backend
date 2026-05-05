@@ -24,13 +24,15 @@ export default function UsersProvider({ children }) {
     return true;
   };
 
-  const deleteUser = (index) => {
-    setUsers((prev) => prev.filter((_, i) => i !== index));
+  
+  const deleteUser = (id) => {
+    setUsers((prev) => prev.filter((u) => u.id !== id));
   };
 
-  const updateUser = (index, updatedUser) => {
+  
+  const updateUser = (id, updatedUser) => {
     setUsers((prev) =>
-      prev.map((u, i) => (i === index ? updatedUser : u))
+      prev.map((u) => (u.id === id ? updatedUser : u))
     );
   };
 

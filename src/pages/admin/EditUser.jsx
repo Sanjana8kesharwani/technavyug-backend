@@ -8,9 +8,9 @@ export default function EditUser() {
   const navigate = useNavigate();
   const { users, updateUser } = useUsers();
 
-  const user = users[id];
+ const user = users.find((u) => u.id === Number(id));
 
-  // ✅ hooks
+  
   const [form, setForm] = useState({
     name: user?.name || "",
     designation: user?.designation || "",
@@ -23,8 +23,11 @@ export default function EditUser() {
   const [preview, setPreview] = useState(user?.photo || null);
   const [errors, setErrors] = useState({});
 
-  // ✅ after hooks
-  if (!user) return <div>User not found</div>;
+   console.log("URL id:", id);
+console.log("Users:", users);
+
+
+if (!user) return null;
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
@@ -61,16 +64,18 @@ export default function EditUser() {
   const handleUpdate = () => {
     if (!validate()) return;
 
-    updateUser(id, form);
+      updateUser(user.id, form); 
     toast.success("User updated successfully 🎉");
 
-    setTimeout(() => navigate("/admin/users"), 1200);
+     navigate("/admin/users");
+
+   
   };
 
   return (
     <div style={{ minHeight: "100vh", background: "#fff", padding: "20px" }}>
       
-      {/* GREY SECTION */}
+     
       <div
         style={{
           background: "#c8d8e8",
@@ -79,7 +84,7 @@ export default function EditUser() {
           padding: "20px",
         }}
       >
-        {/* HEADER */}
+     
         <div style={{ marginBottom: "25px" }}>
           <h3 style={{ margin: 0 }}>Edit User</h3>
           <p style={{ margin: 0, color: "#555", fontSize: "14px" }}>
@@ -87,7 +92,7 @@ export default function EditUser() {
           </p>
         </div>
 
-        {/* WHITE CARD */}
+       
         <div
           style={{
             background: "#fff",
@@ -210,7 +215,7 @@ export default function EditUser() {
   );
 }
 
-/* 🔹 Input component */
+/* Input component */
 const Input = ({ name, value, onChange, placeholder, error, disabled }) => (
   <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
     <label style={{ fontSize: "13px", fontWeight: "600" }}>

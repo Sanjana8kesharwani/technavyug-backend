@@ -19,14 +19,36 @@ export default function AddUser() {
   const [errors, setErrors] = useState({});
   const [preview, setPreview] = useState(null);
 
+  
   const handleChange = (e) => {
     const { name, value, files } = e.target;
 
     if (name === "photo") {
       const file = files[0];
-      setForm({ ...form, photo: file });
 
-      if (file) setPreview(URL.createObjectURL(file));
+      if (file) {
+       
+        if (!["image/jpeg", "image/png"].includes(file.type)) {
+          setErrors((prev) => ({
+            ...prev,
+            photo: "Only JPG or PNG allowed",
+          }));
+          return;
+        }
+
+        
+        if (file.size > 2 * 1024 * 1024) {
+          setErrors((prev) => ({
+            ...prev,
+            photo: "Max size 2MB",
+          }));
+          return;
+        }
+
+        setPreview(URL.createObjectURL(file));
+        setForm({ ...form, photo: file });
+        setErrors((prev) => ({ ...prev, photo: "" }));
+      }
     } else {
       setForm({ ...form, [name]: value });
     }
@@ -52,7 +74,12 @@ export default function AddUser() {
   const handleAddUser = () => {
     if (!validate()) return;
 
-    addUser(form);
+    const success = addUser({
+      ...form,
+      id: Date.now(),
+    });
+
+    if (!success) return;
 
     toast.success("User added successfully 🎉");
 
@@ -141,6 +168,13 @@ export default function AddUser() {
                 onChange={handleChange}
                 style={{ marginTop: "10px" }}
               />
+
+              {/* photo error */}
+              {errors.photo && (
+                <span style={{ color: "red", fontSize: "12px" }}>
+                  {errors.photo}
+                </span>
+              )}
             </div>
 
             {/* FORM */}

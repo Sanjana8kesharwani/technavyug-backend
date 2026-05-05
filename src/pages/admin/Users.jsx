@@ -10,12 +10,12 @@ export default function Users() {
   const [search, setSearch] = useState("");
   const [sortAsc, setSortAsc] = useState(true);
 
-  // 🔍 Filter
+  
   const filteredUsers = users.filter((u) =>
     u.name.toLowerCase().includes(search.toLowerCase())
   );
 
-  // 🔃 Sort (Name)
+ 
   const sortedUsers = [...filteredUsers].sort((a, b) =>
     sortAsc
       ? a.name.localeCompare(b.name)
@@ -25,7 +25,7 @@ export default function Users() {
   return (
     <div style={{ minHeight: "100vh", background: "#fff", padding: "20px" }}>
       
-      {/* GREY SECTION */}
+     
       <div
         style={{
           background: "#c8d8e8",
@@ -35,7 +35,7 @@ export default function Users() {
         }}
       >
         
-        {/* HEADER */}
+    
         <div
           style={{
             marginBottom: "25px",
@@ -78,7 +78,7 @@ export default function Users() {
           </div>
         </div>
 
-        {/* WHITE CARD */}
+       
         <div
           style={{
             background: "#fff",
@@ -89,7 +89,7 @@ export default function Users() {
         >
           <table style={{ width: "100%", borderCollapse: "collapse" }}>
             
-            {/* HEADER */}
+            
             <thead>
               <tr style={{ background: "#e2e8f0", textAlign: "left" }}>
                 <th
@@ -106,7 +106,7 @@ export default function Users() {
               </tr>
             </thead>
 
-            {/* BODY */}
+           
             <tbody>
               {sortedUsers.length === 0 ? (
                 <tr>
@@ -153,7 +153,7 @@ export default function Users() {
                       <div className="action-box">
                         
                         <button
-                          onClick={() => navigate(`/admin/edit-user/${i}`)}
+                         onClick={() => navigate(`/admin/edit-user/${user.id}`)}
                           style={{
                             background: "#3b82f6",
                             color: "#fff",
@@ -170,7 +170,7 @@ export default function Users() {
   className="delete-btn"
   onClick={() => {
     if (window.confirm("Are you sure you want to delete?")) {
-      deleteUser(i);
+      deleteUser(user.id);
       toast.success("User deleted successfully");
     }
   }}
