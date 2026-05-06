@@ -1,41 +1,55 @@
 import { useNavigate, Outlet, useLocation } from "react-router-dom";
-import {
-  LayoutDashboard,
-  Users,
-  Trophy,
-  Rocket,
-  FileText,
-} from "lucide-react";
+import { LayoutDashboard, Users, Trophy, Rocket, FileText } from "lucide-react";
 
 const sidebarItems = [
-  { icon: <LayoutDashboard size={18} />, label: "Dashboard", path: "/admin/dashboard" },
+  {
+    icon: <LayoutDashboard size={18} />,
+    label: "Dashboard",
+    path: "/admin/dashboard",
+  },
   { icon: <Users size={18} />, label: "Users", path: "/admin/users" },
-  { icon: <Trophy size={18} />, label: "Achievements", path: "/admin/achievements" },
+  {
+    icon: <Trophy size={18} />,
+    label: "Achievements",
+    path: "/admin/achievements",
+  },
   { icon: <Rocket size={18} />, label: "Projects", path: "/admin/projects" },
-  { icon: <FileText size={18} />, label: "Certificates", path: "/admin/generate" },
+  {
+    icon: <FileText size={18} />,
+    label: "Certificates",
+    path: "/admin/generate",
+  },
 ];
 
 export default function AdminLayout() {
   const navigate = useNavigate();
   const location = useLocation();
 
- 
   const path = location.pathname;
 
-let activeNav = "Dashboard";
+  let activeNav = "Dashboard";
 
-if (path.includes("/admin/users") || path.includes("/admin/add-user") || path.includes("/admin/edit-user")) {
-  activeNav = "Users";
-} 
-else if (path.includes("/admin/achievements") || path.includes("/admin/add-achievement") || path.includes("/admin/edit-achievement")) {
-  activeNav = "Achievements";
-} 
-else if (path.includes("/admin/projects") || path.includes("/admin/add-project") || path.includes("/admin/edit-project")) {
-  activeNav = "Projects";
-}
-else if (path.includes("/admin/generate")) {
-  activeNav = "Certificates";
-}
+  if (
+    path.includes("/admin/users") ||
+    path.includes("/admin/add-user") ||
+    path.includes("/admin/edit-user")
+  ) {
+    activeNav = "Users";
+  } else if (
+    path.includes("/admin/achievements") ||
+    path.includes("/admin/add-achievement") ||
+    path.includes("/admin/edit-achievement")
+  ) {
+    activeNav = "Achievements";
+  } else if (
+    path.includes("/admin/projects") ||
+    path.includes("/admin/add-project") ||
+    path.includes("/admin/edit-project")
+  ) {
+    activeNav = "Projects";
+  } else if (path.includes("/admin/generate")) {
+    activeNav = "Certificates";
+  }
 
   return (
     <div style={{ display: "flex" }}>
@@ -44,7 +58,10 @@ else if (path.includes("/admin/generate")) {
         style={{
           width: "220px",
           minWidth: "220px",
-          height: "100vh",
+          minHeight: "100vh",
+          position: "sticky",
+          top: 0,
+          alignSelf: "flex-start",
           background: "#fff",
           display: "flex",
           flexDirection: "column",
@@ -54,7 +71,9 @@ else if (path.includes("/admin/generate")) {
         }}
       >
         {/* Logo */}
-        <div style={{ fontWeight: "900", fontSize: "22px", marginBottom: "36px" }}>
+        <div
+          style={{ fontWeight: "900", fontSize: "22px", marginBottom: "36px" }}
+        >
           <span style={{ color: "#0f172a" }}>Tech</span>
           <span style={{ color: "#06b6d4" }}>navyug</span>
         </div>
