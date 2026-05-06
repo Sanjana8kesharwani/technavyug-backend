@@ -74,7 +74,7 @@ export default function AdminProjects() {
               </colgroup>
 
               {/* HEADER */}
-              <thead style={{ background: "#f3f4f6" }}>
+              <thead style={{background: "#e2e8f0", textAlign: "left"}}>
                 <tr>
                   <th style={thStyle}>Title</th>
                   <th style={thStyle}>Category</th>
