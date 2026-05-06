@@ -11,13 +11,22 @@ export default function ProjectsProvider({ children }) {
   }, [projects]);
 
   const addProject = (data) => {
-    setProjects((prev) => [...prev, { ...data, id: Date.now() }]);
+    setProjects((prev) => [
+      ...prev,
+      {
+        ...data,
+        id: Date.now(),
+        published: true,
+      },
+    ]);
   };
 
   const updateProject = (id, updated) => {
     setProjects((prev) =>
       prev.map((p) =>
-        p.id.toString() === id.toString() ? { ...p, ...updated } : p
+        p.id.toString() === id.toString()
+          ? { ...p, ...updated }
+          : p
       )
     );
   };
@@ -28,9 +37,56 @@ export default function ProjectsProvider({ children }) {
     );
   };
 
+  // ✅ DUPLICATE
+  const duplicateProject = (id) => {
+    const existing = projects.find(
+      (p) => p.id.toString() === id.toString()
+    );
+
+    if (existing) {
+      const copy = {
+        ...existing,
+        id: Date.now(),
+        title: existing.title + " Copy",
+      };
+
+      setProjects((prev) => [...prev, copy]);
+    }
+  };
+
+  // ✅ FEATURE TOGGLE
+  const toggleFeatured = (id) => {
+    setProjects((prev) =>
+      prev.map((p) =>
+        p.id.toString() === id.toString()
+          ? { ...p, featured: !p.featured }
+          : p
+      )
+    );
+  };
+
+  // ✅ PUBLISH TOGGLE
+  const togglePublish = (id) => {
+    setProjects((prev) =>
+      prev.map((p) =>
+        p.id.toString() === id.toString()
+          ? { ...p, published: !p.published }
+          : p
+      )
+    );
+  };
+
   return (
     <ProjectsContext.Provider
-      value={{ projects, addProject, updateProject, deleteProject }}
+      value={{
+        projects,
+        addProject,
+        updateProject,
+        deleteProject,
+        duplicateProject,
+        toggleFeatured,
+        togglePublish,
+      }}
     >
       {children}
     </ProjectsContext.Provider>
