@@ -8,11 +8,8 @@ export default function EditUser() {
   const navigate = useNavigate();
   const { users, updateUser } = useUsers();
 
- const user = users.find(
-  (u) => String(u.id) === String(id)
-);
+  const user = users.find((u) => String(u.id) === String(id));
 
-  
   const [form, setForm] = useState({
     name: user?.name || "",
     designation: user?.designation || "",
@@ -25,22 +22,21 @@ export default function EditUser() {
   const [preview, setPreview] = useState(user?.photo || null);
   const [errors, setErrors] = useState({});
 
-   console.log("URL id:", id);
-console.log("Users:", users);
+  console.log("URL id:", id);
+  console.log("Users:", users);
 
-
-if (!user) {
-  return (
-    <div
-      style={{
-        padding: "40px",
-        fontSize: "20px",
-      }}
-    >
-      Loading user...
-    </div>
-  );
-}
+  if (!user) {
+    return (
+      <div
+        style={{
+          padding: "40px",
+          fontSize: "20px",
+        }}
+      >
+        Loading user...
+      </div>
+    );
+  }
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
@@ -67,8 +63,7 @@ if (!user) {
     if (form.email && !/\S+@\S+\.\S+/.test(form.email))
       newErrors.email = "Invalid email";
 
-    if (form.phone && form.phone.length < 10)
-      newErrors.phone = "Invalid phone";
+    if (form.phone && form.phone.length < 10) newErrors.phone = "Invalid phone";
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -77,62 +72,56 @@ if (!user) {
   const handleUpdate = () => {
     if (!validate()) return;
 
-      updateUser(user.id, form); 
+    updateUser(user.id, form);
     toast.success("User updated successfully 🎉");
 
-     navigate("/admin/users");
-
-   
+    navigate("/admin/users");
   };
 
   return (
     <div style={{ minHeight: "100vh", background: "#fff", padding: "20px" }}>
-      
-     
       <div
-  style={{
-    background: "#c8d8e8",
-    borderRadius: "28px",
-    minHeight: "calc(100vh - 40px)",
-    padding: "20px",
-  }}
->
-  {/* HEADER */}
-  <div style={{ marginBottom: "25px" }}>
-    <h1
-      style={{
-        fontSize: "30px",
-        fontWeight: "700",
-        color: "#1e293b",
-        marginBottom: "6px",
-      }}
-    >
-      Edit User
-    </h1>
+        style={{
+          background: "#c8d8e8",
+          borderRadius: "28px",
+          minHeight: "calc(100vh - 40px)",
+          padding: "20px",
+        }}
+      >
+        {/* HEADER */}
+        <div style={{ marginBottom: "25px" }}>
+          <h1
+            style={{
+              fontSize: "30px",
+              fontWeight: "700",
+              color: "#1e293b",
+              marginBottom: "6px",
+            }}
+          >
+            Edit User
+          </h1>
 
-    <p
-      style={{
-        color: "#64748b",
-        fontSize: "16px",
-        margin: 0,
-      }}
-    >
-      Update user information
-    </p>
-  </div>
+          <p
+            style={{
+              color: "#64748b",
+              fontSize: "16px",
+              margin: 0,
+            }}
+          >
+            Update user information
+          </p>
+        </div>
 
-  {/* WHITE CARD */}
-  <div
-    style={{
-      background: "#fff",
-      borderRadius: "20px",
-      padding: "30px",
-      boxShadow:
-        "0 10px 40px rgba(0,0,0,0.08)",
-    }}
-  >
+        {/* WHITE CARD */}
+        <div
+          style={{
+            background: "#fff",
+            borderRadius: "20px",
+            padding: "30px",
+            boxShadow: "0 10px 40px rgba(0,0,0,0.08)",
+          }}
+        >
           <div style={{ display: "flex", gap: "30px" }}>
-            
             {/* IMAGE */}
             <div style={{ textAlign: "center" }}>
               <div
@@ -225,19 +214,20 @@ if (!user) {
                   onClick={handleUpdate}
                   style={{
                     marginTop: "20px",
-                    padding: "10px 18px",
                     background: "#4f46e5",
                     color: "#fff",
+                    padding: "12px 18px",
+                    borderRadius: "12px",
                     border: "none",
-                    borderRadius: "10px",
                     cursor: "pointer",
+                    fontWeight: "600",
+                    fontSize: "14px",
                   }}
                 >
                   Update User
                 </button>
               </div>
             </div>
-
           </div>
         </div>
       </div>
@@ -248,9 +238,7 @@ if (!user) {
 /* Input component */
 const Input = ({ name, value, onChange, placeholder, error, disabled }) => (
   <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
-    <label style={{ fontSize: "13px", fontWeight: "600" }}>
-      {placeholder}
-    </label>
+    <label style={{ fontSize: "13px", fontWeight: "600" }}>{placeholder}</label>
 
     <input
       name={name}
@@ -266,8 +254,6 @@ const Input = ({ name, value, onChange, placeholder, error, disabled }) => (
       }}
     />
 
-    {error && (
-      <span style={{ color: "red", fontSize: "12px" }}>{error}</span>
-    )}
+    {error && <span style={{ color: "red", fontSize: "12px" }}>{error}</span>}
   </div>
 );
