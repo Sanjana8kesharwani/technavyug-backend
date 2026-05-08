@@ -15,6 +15,7 @@ import EventsMedia from "./pages/EventsMedia";
 import BlogDetails from "./components/BlogDetails";
 import AdminLayout from "./layouts/AdminLayout";
 import ForgotPassword from "./pages/admin/ForgotPassword";
+import ResetPassword from "./pages/admin/ResetPassword";
 
 // Admin imports
 import AdminLogin from "./pages/admin/AdminLogin";
@@ -87,7 +88,8 @@ function App() {
                 {/* 🔐 Admin Login */}
                 <Route path="/admin/login" element={<AdminLogin />} />
                 <Route path="/admin/forgot-password" element={<ForgotPassword />} />
-
+                <Route path="/admin/reset-password" element={<ResetPassword />} />
+ 
                 {/* 🔐 Admin Protected Routes */}
                 <Route
                   path="/admin"

@@ -63,7 +63,7 @@ export default function ForgotPassword() {
         {/* Back */}
         <button
           onClick={() =>
-            navigate("/admin/login")
+            navigate("/admin/reset-password")
           }
           style={{
             display: "flex",
