@@ -207,24 +207,30 @@ export default function AdminLogin() {
           </div>
 
           {/* Forgot */}
+
           <div
             style={{
-              textAlign: "right",
+              display: "flex",
+              justifyContent: "flex-end",
+              marginTop: "10px",
               marginBottom: "18px",
             }}
           >
             <span
+              onClick={() => navigate("/admin/forgot-password")}
               style={{
-                color: "#4f46e5",
                 fontSize: "14px",
-                cursor: "pointer",
+                color: "#4f46e5",
                 fontWeight: "500",
+                cursor: "pointer",
+                transition: "0.3s",
               }}
             >
               Forgot Password?
             </span>
           </div>
 
+          
           {/* Error */}
           {error && (
             <p
