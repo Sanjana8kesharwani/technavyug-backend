@@ -20,7 +20,6 @@ export default function AdminLogin() {
 
     if (email === "admin@gmail.com" && password === "1234") {
       localStorage.setItem("token", "dummy");
-
       navigate("/admin/dashboard");
     } else {
       setError("Invalid email or password");
@@ -31,249 +30,366 @@ export default function AdminLogin() {
     <div
       style={{
         minHeight: "100vh",
+        background:
+          "linear-gradient(135deg, #06B6D4 0%, #0891B2 45%, #0E7490 100%)",
         display: "flex",
-        flexWrap: "wrap",
-        background: "linear-gradient(to right, #0f2747 50%, #c7d8ef 50%)",
+        justifyContent: "center",
+        alignItems: "center",
+        padding: "30px",
+        overflow: "hidden",
+        position: "relative",
+        fontFamily: "sans-serif",
       }}
     >
-      {/* LEFT SIDE */}
+      {/* BACKGROUND SHAPES */}
+
       <div
         style={{
-          flex: "1 1 500px",
-          minHeight: "100vh",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          padding: "40px",
-          boxSizing: "border-box",
-          background:
-            "linear-gradient(135deg, #061b3a 0%, #0f2747 60%, #0ea5e9 140%)",
-          position: "relative",
+          position: "absolute",
+          width: "700px",
+          height: "700px",
+          borderRadius: "50%",
+          background: "rgba(255,255,255,0.06)",
+          top: "-250px",
+          right: "-180px",
+        }}
+      />
+
+      <div
+        style={{
+          position: "absolute",
+          width: "500px",
+          height: "500px",
+          borderRadius: "50%",
+          background: "rgba(255,255,255,0.04)",
+          bottom: "-180px",
+          left: "-120px",
+        }}
+      />
+
+      {/* MAIN CARD */}
+
+      <div
+        style={{
+          width: "100%",
+          maxWidth: "1100px",
+          minHeight: "650px",
+          background: "#fff",
+          borderRadius: "28px",
           overflow: "hidden",
+          display: "flex",
+          boxShadow: "0 25px 60px rgba(0,0,0,0.18)",
+          zIndex: 2,
         }}
       >
-        {/* Glow Effect */}
-        <div
-          style={{
-            position: "absolute",
-            width: "350px",
-            height: "350px",
-            borderRadius: "50%",
-            background: "rgba(6,182,212,0.15)",
-            top: "-120px",
-            left: "-120px",
-            filter: "blur(30px)",
-          }}
-        />
+        {/* LEFT SIDE */}
 
         <div
           style={{
-            position: "absolute",
-            width: "250px",
-            height: "250px",
-            borderRadius: "50%",
-            background: "rgba(14,165,233,0.15)",
-            bottom: "-100px",
-            right: "-80px",
-            filter: "blur(30px)",
-          }}
-        />
-
-        <div
-          style={{
-            textAlign: "center",
+            flex: 1,
+            background: "#fff",
+            padding: "70px 60px",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
             position: "relative",
             zIndex: 2,
+            clipPath:
+              "polygon(0 0, 100% 0, 82% 50%, 100% 100%, 0 100%, 0 50%)",
           }}
         >
-          <img
-            src={logo}
-            alt="TechNavyug Logo"
-            style={{
-              maxWidth: "320px",
-              objectFit: "contain",
-              marginBottom: "28px",
-              mixBlendMode: "screen",
-              filter:
-                "brightness(0) invert(1) drop-shadow(0 10px 25px rgba(0,0,0,0.25))",
-            }}
-          />
+          <div style={{ marginBottom: "35px" }}>
+            <img
+              src={logo}
+              alt="logo"
+              style={{
+                width: "90px",
+                marginBottom: "20px",
+                filter: "brightness(0)",
+              }}
+            />
 
-          <h1
-            style={{
-              color: "#fff",
-              fontSize: "64px",
-              fontWeight: "800",
-              marginTop: "8px",
-              marginBottom: "8px",
-              letterSpacing: "-2px",
-              lineHeight: "1",
-            }}
-          >
-            Technavyug
-          </h1>
+            <p
+              style={{
+                color: "#777",
+                fontSize: "18px",
+                marginBottom: "8px",
+              }}
+            >
+              Welcome to
+            </p>
 
-          <p
-            style={{
-              color: "#dbeafe",
-              fontSize: "20px",
-              fontWeight: "500",
-              lineHeight: "1.5",
-              marginTop: "0px",
-            }}
-          >
-            Empowering Future-Ready Tech Education
-          </p>
+            <h1
+              style={{
+                fontSize: "56px",
+                margin: 0,
+                color: "#2d3748",
+                fontWeight: "800",
+              }}
+            >
+              Technavyug
+            </h1>
+          </div>
+
+          {/* FORM */}
+
+          <form onSubmit={handleLogin}>
+            <div style={{ marginBottom: "20px" }}>
+              <label
+                style={{
+                  display: "block",
+                  marginBottom: "10px",
+                  color: "#555",
+                  fontWeight: "600",
+                }}
+              >
+                Username
+              </label>
+
+              <input
+                type="email"
+                placeholder="admin@gmail.com"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                style={inputStyle}
+              />
+            </div>
+
+            <div style={{ marginBottom: "20px" }}>
+              <label
+                style={{
+                  display: "block",
+                  marginBottom: "10px",
+                  color: "#555",
+                  fontWeight: "600",
+                }}
+              >
+                Password
+              </label>
+
+              <input
+                type="password"
+                placeholder="Enter password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                style={inputStyle}
+              />
+            </div>
+
+            {/* REMEMBER */}
+
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                marginBottom: "25px",
+              }}
+            >
+              <label
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "8px",
+                  color: "#666",
+                  fontSize: "14px",
+                }}
+              >
+                <input type="checkbox" />
+                Remember me
+              </label>
+
+              <span
+                onClick={() => navigate("/admin/forgot-password")}
+                style={{
+                  color: "#0891B2",
+                  cursor: "pointer",
+                  fontSize: "14px",
+                  fontWeight: "600",
+                }}
+              >
+                Forgot Password?
+              </span>
+            </div>
+
+            {/* ERROR */}
+
+            {error && (
+              <p
+                style={{
+                  color: "red",
+                  fontSize: "14px",
+                  marginBottom: "15px",
+                }}
+              >
+                {error}
+              </p>
+            )}
+
+            {/* BUTTON */}
+
+            <button
+              type="submit"
+              style={{
+                width: "100%",
+                padding: "16px",
+                border: "none",
+                borderRadius: "12px",
+                background:
+                  "linear-gradient(135deg, #06B6D4 0%, #0891B2 100%)",
+                color: "#fff",
+                fontSize: "18px",
+                fontWeight: "700",
+                cursor: "pointer",
+                boxShadow: "0 12px 25px rgba(8,145,178,0.25)",
+              }}
+            >
+              LOGIN
+            </button>
+
+            <p
+              style={{
+                marginTop: "25px",
+                color: "#777",
+                textAlign: "center",
+                fontSize: "14px",
+              }}
+            >
+              © 2026 Technavyug. All Rights Reserved
+            </p>
+          </form>
         </div>
-      </div>
 
-      {/* RIGHT SIDE */}
-      <div
-        style={{
-          flex: "1 1 420px",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          padding: "30px",
-          boxSizing: "border-box",
-        }}
-      >
-        <form
-          onSubmit={handleLogin}
+        {/* RIGHT SIDE */}
+
+        <div
           style={{
-            width: "100%",
-            maxWidth: "480px",
-            background: "#fff",
-            borderRadius: "30px",
-            padding: "45px 35px",
-            boxShadow: "0 15px 45px rgba(0,0,0,0.15)",
-            boxSizing: "border-box",
+            flex: 1,
+            background:
+              "linear-gradient(135deg, #06B6D4 0%, #0891B2 45%, #0E7490 100%)",
+            color: "#fff",
+            position: "relative",
+            padding: "70px 60px",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            overflow: "hidden",
           }}
         >
-          <h3
-            style={{
-              fontSize: "clamp(36px, 5vw, 35px)",
-              fontWeight: "800",
-              color: "#0f2747",
-              marginBottom: "35px",
-              textAlign: "center",
-            }}
-          >
-            Login Account
-          </h3>
-
-          {/* Email */}
-          <div style={{ marginBottom: "24px" }}>
-            <label
-              style={{
-                display: "block",
-                marginBottom: "10px",
-                fontWeight: "600",
-                color: "#334155",
-              }}
-            >
-              Email ID
-            </label>
-
-            <input
-              type="email"
-              placeholder="admin@gmail.com"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              style={inputStyle}
-            />
-          </div>
-
-          {/* Password */}
-          <div style={{ marginBottom: "10px" }}>
-            <label
-              style={{
-                display: "block",
-                marginBottom: "10px",
-                fontWeight: "600",
-                color: "#334155",
-              }}
-            >
-              Password
-            </label>
-
-            <input
-              type="password"
-              placeholder="Enter password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              style={inputStyle}
-            />
-          </div>
-
-          {/* Forgot */}
+          {/* CIRCLES */}
 
           <div
             style={{
-              display: "flex",
-              justifyContent: "flex-end",
-              marginTop: "10px",
-              marginBottom: "18px",
+              position: "absolute",
+              width: "350px",
+              height: "350px",
+              borderRadius: "50%",
+              background: "rgba(255,255,255,0.08)",
+              top: "-100px",
+              left: "-80px",
             }}
-          >
-            <span
-              onClick={() => navigate("/admin/forgot-password")}
-              style={{
-                fontSize: "14px",
-                color: "#4f46e5",
-                fontWeight: "500",
-                cursor: "pointer",
-                transition: "0.3s",
-              }}
-            >
-              Forgot Password?
-            </span>
-          </div>
+          />
 
-          
-          {/* Error */}
-          {error && (
-            <p
-              style={{
-                color: "red",
-                fontSize: "14px",
-                marginBottom: "18px",
-              }}
-            >
-              {error}
-            </p>
-          )}
-
-          {/* Button */}
-          <button
-            type="submit"
+          <div
             style={{
-              width: "100%",
-              background: "#0f2747",
-              color: "#fff",
-              border: "none",
-              padding: "16px",
-              borderRadius: "14px",
-              fontSize: "20px",
-              fontWeight: "700",
-              cursor: "pointer",
+              position: "absolute",
+              width: "220px",
+              height: "220px",
+              borderRadius: "50%",
+              background: "rgba(255,255,255,0.06)",
+              bottom: "40px",
+              right: "-60px",
+            }}
+          />
+
+          <h2
+            style={{
+              fontSize: "42px",
+              marginBottom: "20px",
+              zIndex: 2,
             }}
           >
-            Login
-          </button>
+            About Technavyug
+          </h2>
 
           <p
             style={{
-              marginTop: "30px",
-              textAlign: "center",
-              color: "#64748b",
-              fontWeight: "500",
-              fontSize: "15px",
+              lineHeight: "1.8",
+              color: "rgba(255,255,255,0.88)",
+              marginBottom: "35px",
+              zIndex: 2,
+              fontSize: "16px",
             }}
           >
-            Powered by TechNavyug
+            Technavyug is a modern platform focused on empowering students and
+            developers with future-ready technology skills, projects, and
+            innovation-driven learning experiences.
           </p>
-        </form>
+
+          <div style={{ zIndex: 2 }}>
+            <h3
+              style={{
+                marginBottom: "18px",
+                fontSize: "24px",
+              }}
+            >
+              Features
+            </h3>
+
+            {[
+              "Modern Admin Dashboard",
+              "Certificate Management System",
+              "Project & User Management",
+              "Responsive and Secure Platform",
+            ].map((item, index) => (
+              <div
+                key={index}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "12px",
+                  marginBottom: "18px",
+                  color: "rgba(255,255,255,0.92)",
+                }}
+              >
+                <div
+                  style={{
+                    width: "10px",
+                    height: "10px",
+                    borderRadius: "50%",
+                    background: "#fff",
+                  }}
+                />
+
+                <span>{item}</span>
+              </div>
+            ))}
+          </div>
+
+          {/* BOTTOM DESIGN */}
+
+          <div
+            style={{
+              position: "absolute",
+              bottom: "0",
+              left: "0",
+              width: "100%",
+            }}
+          >
+            <svg
+              viewBox="0 0 1440 320"
+              style={{
+                width: "100%",
+                display: "block",
+              }}
+            >
+              <path
+                fill="rgba(255,255,255,0.15)"
+                d="M0,224L80,229.3C160,235,320,245,480,224C640,203,800,149,960,149.3C1120,149,1280,203,1360,229.3L1440,256L1440,320L0,320Z"
+              ></path>
+            </svg>
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -281,10 +397,11 @@ export default function AdminLogin() {
 
 const inputStyle = {
   width: "100%",
-  padding: "16px",
-  borderRadius: "14px",
-  border: "1px solid #dbe2ea",
+  padding: "15px 18px",
+  borderRadius: "10px",
+  border: "1px solid #E2E8F0",
   outline: "none",
-  fontSize: "16px",
+  fontSize: "15px",
   boxSizing: "border-box",
+  background: "#F8FAFC",
 };
