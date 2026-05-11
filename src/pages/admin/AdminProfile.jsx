@@ -21,7 +21,9 @@ export default function AdminProfile() {
       style={{
         background: "#c8d8e8",
         minHeight: "100vh",
-        padding: "20px",
+        padding: "clamp(10px, 2vw, 20px)",
+        boxSizing: "border-box",
+        overflowX: "hidden",
       }}
     >
       {/* Header */}
@@ -38,7 +40,7 @@ export default function AdminProfile() {
         <div>
           <h1
             style={{
-              fontSize: "30px",
+              fontSize: "clamp(24px, 4vw, 30px)",
               fontWeight: "700",
               margin: 0,
               color: "#0f172a",
@@ -51,7 +53,7 @@ export default function AdminProfile() {
             style={{
               marginTop: "6px",
               color: "#475569",
-              fontSize: "15px",
+              fontSize: "clamp(14px, 2vw, 15px)",
             }}
           >
             Manage your account and security settings
@@ -69,6 +71,8 @@ export default function AdminProfile() {
             fontWeight: "600",
             cursor: "pointer",
             fontSize: "14px",
+            whiteSpace: "nowrap",
+            maxWidth: "100%",
           }}
         >
           Logout
@@ -80,8 +84,9 @@ export default function AdminProfile() {
         style={{
           background: "#fff",
           borderRadius: "24px",
-          padding: "30px",
+          padding: "clamp(18px, 4vw, 30px)",
           boxShadow: "0 10px 30px rgba(0,0,0,0.06)",
+          boxSizing: "border-box",
         }}
       >
         {/* Top Section */}
@@ -107,18 +112,20 @@ export default function AdminProfile() {
               color: "#fff",
               fontSize: "42px",
               fontWeight: "700",
+              flexShrink: 0,
             }}
           >
             AD
           </div>
 
           {/* Info */}
-          <div>
+          <div style={{ flex: 1, minWidth: "240px" }}>
             <h2
               style={{
                 margin: 0,
-                fontSize: "30px",
+                fontSize: "clamp(24px, 4vw, 30px)",
                 color: "#0f172a",
+                wordBreak: "break-word",
               }}
             >
               Admin
@@ -128,7 +135,7 @@ export default function AdminProfile() {
               style={{
                 marginTop: "6px",
                 color: "#64748b",
-                fontSize: "16px",
+                fontSize: "clamp(14px, 2vw, 16px)",
               }}
             >
               Super Admin • Technavyug
@@ -188,7 +195,8 @@ export default function AdminProfile() {
         <div
           style={{
             display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
+            gridTemplateColumns:
+              "repeat(auto-fit, minmax(260px, 1fr))",
             gap: "24px",
             marginBottom: "40px",
           }}
@@ -199,9 +207,10 @@ export default function AdminProfile() {
               background: "#ffffff",
               borderRadius: "24px",
               padding: "26px",
-              boxShadow: "0 8px 24px rgba(255, 192, 203, 0.18)",
+              boxShadow:
+                "0 8px 24px rgba(255, 192, 203, 0.18)",
               border: "1px solid #f1f5f9",
-              transition: "0.3s",
+              boxSizing: "border-box",
             }}
           >
             <div
@@ -234,7 +243,7 @@ export default function AdminProfile() {
               style={{
                 margin: 0,
                 color: "#0f172a",
-                fontSize: "22px",
+                fontSize: "clamp(18px, 3vw, 22px)",
                 fontWeight: "700",
                 wordBreak: "break-word",
               }}
@@ -259,8 +268,10 @@ export default function AdminProfile() {
               background: "#ffffff",
               borderRadius: "24px",
               padding: "26px",
-              boxShadow: "0 8px 24px rgba(255, 192, 203, 0.18)",
+              boxShadow:
+                "0 8px 24px rgba(255, 192, 203, 0.18)",
               border: "1px solid #f1f5f9",
+              boxSizing: "border-box",
             }}
           >
             <div
@@ -293,7 +304,7 @@ export default function AdminProfile() {
               style={{
                 margin: 0,
                 color: "#0f172a",
-                fontSize: "22px",
+                fontSize: "clamp(18px, 3vw, 22px)",
                 fontWeight: "700",
               }}
             >
@@ -317,8 +328,10 @@ export default function AdminProfile() {
               background: "#ffffff",
               borderRadius: "24px",
               padding: "26px",
-              boxShadow: "0 8px 24px rgba(255, 192, 203, 0.18)",
+              boxShadow:
+                "0 8px 24px rgba(255, 192, 203, 0.18)",
               border: "1px solid #f1f5f9",
+              boxSizing: "border-box",
             }}
           >
             <div
@@ -351,7 +364,7 @@ export default function AdminProfile() {
               style={{
                 margin: 0,
                 color: "#0f172a",
-                fontSize: "22px",
+                fontSize: "clamp(18px, 3vw, 22px)",
                 fontWeight: "700",
               }}
             >
@@ -374,7 +387,7 @@ export default function AdminProfile() {
         <div>
           <h2
             style={{
-              fontSize: "28px",
+              fontSize: "clamp(22px, 4vw, 28px)",
               marginBottom: "24px",
               color: "#0f172a",
               fontWeight: "700",
@@ -386,7 +399,8 @@ export default function AdminProfile() {
           <div
             style={{
               display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+              gridTemplateColumns:
+                "repeat(auto-fit, minmax(280px, 1fr))",
               gap: "24px",
             }}
           >
@@ -396,8 +410,10 @@ export default function AdminProfile() {
                 background: "#ffffff",
                 padding: "28px",
                 borderRadius: "24px",
-                boxShadow: "0 8px 24px rgba(255, 192, 203, 0.18)",
+                boxShadow:
+                  "0 8px 24px rgba(255, 192, 203, 0.18)",
                 border: "1px solid #f1f5f9",
+                boxSizing: "border-box",
               }}
             >
               <div
@@ -458,8 +474,10 @@ export default function AdminProfile() {
                 background: "#ffffff",
                 padding: "28px",
                 borderRadius: "24px",
-                boxShadow: "0 8px 24px rgba(255, 192, 203, 0.18)",
+                boxShadow:
+                  "0 8px 24px rgba(255, 192, 203, 0.18)",
                 border: "1px solid #f1f5f9",
+                boxSizing: "border-box",
               }}
             >
               <div
@@ -520,8 +538,10 @@ export default function AdminProfile() {
                 background: "#ffffff",
                 padding: "28px",
                 borderRadius: "24px",
-                boxShadow: "0 8px 24px rgba(255, 192, 203, 0.18)",
+                boxShadow:
+                  "0 8px 24px rgba(255, 192, 203, 0.18)",
                 border: "1px solid #f1f5f9",
+                boxSizing: "border-box",
               }}
             >
               <div
