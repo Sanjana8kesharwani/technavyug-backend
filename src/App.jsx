@@ -42,6 +42,11 @@ import AddCertificate from "./pages/admin/certificates/AddCertificate";
 import EditCertificate from "./pages/admin/certificates/EditCertificates";
 import CertificatesProvider from "./provider/CertificatesProvider";
 
+import Settings from "./pages/admin/settings/Settings";
+import Termsconditions from "./pages/admin/settings/TermsConditions";
+import Privacypolicy from "./pages/admin/settings/PrivacyPolicy";
+import AuditLogs from "./pages/admin/settings/AuditLogs";
+
 import CursorGlow from "./components/CursorGlow";
 import { Toaster } from "react-hot-toast";
 
@@ -89,6 +94,8 @@ function App() {
                 <Route path="/admin/login" element={<AdminLogin />} />
                 <Route path="/admin/forgot-password" element={<ForgotPassword />} />
                 <Route path="/admin/reset-password" element={<ResetPassword />} />
+
+                
  
                 {/* 🔐 Admin Protected Routes */}
                 <Route
@@ -108,22 +115,22 @@ function App() {
 
                   <Route path="achievements" element={<Achievements />} />
                   <Route path="add-achievement" element={<AddAchievement />} />
-                  <Route
-                    path="edit-achievement/:id"
-                    element={<EditAchievement />}
-                  />
-
+                  <Route path="edit-achievement/:id" element={<EditAchievement />} />
+                    
                   <Route path="projects" element={<AdminProjects />} />
                   <Route path="add-project" element={<AddProject />} />
                   <Route path="edit-project/:id" element={<EditProject />} />
 
                   <Route path="certificates" element={<Certificates />} />
                   <Route path="add-certificate" element={<AddCertificate />} />
-                  <Route
-                    path="edit-certificate/:id"
-                    element={<EditCertificate />}
-                  />
+                  <Route path="edit-certificate/:id" element={<EditCertificate />} />
+    
                   <Route path="generate" element={<GenerateCertificate />} />
+
+                  <Route path="/admin/settings" element={<Settings />} />
+                  <Route path="/admin/settings/terms" element={<Termsconditions />} />
+                  <Route path="/admin/settings/privacy-policy" element={<Privacypolicy />} />
+                  <Route path="/admin/settings/audit-logs" element={<AuditLogs />} />
                 </Route>
               </Routes>
             </ProjectsProvider>
