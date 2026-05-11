@@ -19,13 +19,22 @@ export default function Users() {
   );
 
   return (
-    <div style={{ minHeight: "100vh", background: "#fff", padding: "20px" }}>
+    <div
+      style={{
+        minHeight: "100vh",
+        background: "#fff",
+        padding: "clamp(10px, 2vw, 20px)",
+        boxSizing: "border-box",
+        overflowX: "hidden",
+      }}
+    >
       <div
         style={{
           background: "#c8d8e8",
-          borderRadius: "28px",
+          borderRadius: "clamp(18px, 3vw, 28px)",
           minHeight: "calc(100vh - 40px)",
-          padding: "20px",
+          padding: "clamp(14px, 3vw, 20px)",
+          boxSizing: "border-box",
         }}
       >
         <div
@@ -34,12 +43,14 @@ export default function Users() {
             display: "flex",
             justifyContent: "space-between",
             alignItems: "flex-start",
+            gap: "14px",
+            flexWrap: "wrap",
           }}
         >
           <div>
             <h1
               style={{
-                fontSize: "30px",
+                fontSize: "clamp(24px, 4vw, 30px)",
                 fontWeight: "700",
                 color: "#1e293b",
                 marginBottom: "6px",
@@ -51,7 +62,7 @@ export default function Users() {
             <p
               style={{
                 color: "#64748b",
-                fontSize: "16px",
+                fontSize: "clamp(14px, 2vw, 16px)",
                 margin: 0,
               }}
             >
@@ -59,7 +70,13 @@ export default function Users() {
             </p>
           </div>
 
-          <div style={{ display: "flex", gap: "10px" }}>
+          <div
+            style={{
+              display: "flex",
+              gap: "10px",
+              flexWrap: "wrap",
+            }}
+          >
             <input
               placeholder="Search..."
               onChange={(e) => setSearch(e.target.value)}
@@ -67,6 +84,8 @@ export default function Users() {
                 padding: "8px 12px",
                 borderRadius: "8px",
                 border: "1px solid #ccc",
+                minWidth: "180px",
+                boxSizing: "border-box",
               }}
             />
 
@@ -82,6 +101,7 @@ export default function Users() {
                 border: "none",
                 cursor: "pointer",
                 fontSize: "14px",
+                whiteSpace: "nowrap",
               }}
             >
               + Add User
@@ -93,24 +113,82 @@ export default function Users() {
           style={{
             background: "#fff",
             borderRadius: "20px",
-            padding: "20px",
+            padding: "clamp(10px, 2vw, 20px)",
             boxShadow: "0 10px 40px rgba(0,0,0,0.08)",
+            overflowX: "auto",
+            width: "100%",
+            boxSizing: "border-box",
           }}
         >
-          <table style={{ width: "100%", borderCollapse: "collapse" }}>
+          <table
+            style={{
+              width: "100%",
+              borderCollapse: "collapse",
+              minWidth: "950px",
+            }}
+          >
             <thead>
-              <tr style={{ background: "#e2e8f0", textAlign: "left" }}>
+              <tr
+                style={{
+                  background: "#e2e8f0",
+                  textAlign: "left",
+                }}
+              >
                 <th
-                  style={{ padding: "12px", cursor: "pointer" }}
+                  style={{
+                    padding: "12px",
+                    cursor: "pointer",
+                    whiteSpace: "nowrap",
+                  }}
                   onClick={() => setSortAsc(!sortAsc)}
                 >
                   Name {sortAsc ? "↑" : "↓"}
                 </th>
-                <th style={{ padding: "12px" }}>Designation</th>
-                <th style={{ padding: "12px" }}>Email</th>
-                <th style={{ padding: "12px" }}>Phone</th>
-                <th style={{ padding: "12px" }}>LinkedIn</th>
-                <th style={{ padding: "12px" }}>Actions</th>
+
+                <th
+                  style={{
+                    padding: "12px",
+                    whiteSpace: "nowrap",
+                  }}
+                >
+                  Designation
+                </th>
+
+                <th
+                  style={{
+                    padding: "12px",
+                    whiteSpace: "nowrap",
+                  }}
+                >
+                  Email
+                </th>
+
+                <th
+                  style={{
+                    padding: "12px",
+                    whiteSpace: "nowrap",
+                  }}
+                >
+                  Phone
+                </th>
+
+                <th
+                  style={{
+                    padding: "12px",
+                    whiteSpace: "nowrap",
+                  }}
+                >
+                  LinkedIn
+                </th>
+
+                <th
+                  style={{
+                    padding: "12px",
+                    whiteSpace: "nowrap",
+                  }}
+                >
+                  Actions
+                </th>
               </tr>
             </thead>
 
@@ -119,7 +197,10 @@ export default function Users() {
                 <tr>
                   <td
                     colSpan="6"
-                    style={{ padding: "20px", textAlign: "center" }}
+                    style={{
+                      padding: "20px",
+                      textAlign: "center",
+                    }}
                   >
                     No users found
                   </td>
@@ -132,21 +213,55 @@ export default function Users() {
                       borderBottom: "1px solid #ddd",
                     }}
                   >
-                    <td style={{ padding: "12px", fontWeight: "500" }}>
+                    <td
+                      style={{
+                        padding: "12px",
+                        fontWeight: "500",
+                        wordBreak: "break-word",
+                      }}
+                    >
                       {user.name}
                     </td>
 
-                    <td style={{ padding: "12px" }}>{user.designation}</td>
+                    <td
+                      style={{
+                        padding: "12px",
+                        wordBreak: "break-word",
+                      }}
+                    >
+                      {user.designation}
+                    </td>
 
-                    <td style={{ padding: "12px", color: "#555" }}>
+                    <td
+                      style={{
+                        padding: "12px",
+                        color: "#555",
+                        wordBreak: "break-word",
+                      }}
+                    >
                       {user.email || "—"}
                     </td>
 
-                    <td style={{ padding: "12px" }}>{user.phone || "—"}</td>
+                    <td
+                      style={{
+                        padding: "12px",
+                        wordBreak: "break-word",
+                      }}
+                    >
+                      {user.phone || "—"}
+                    </td>
 
-                    <td style={{ padding: "12px" }}>
+                    <td
+                      style={{
+                        padding: "12px",
+                        wordBreak: "break-word",
+                      }}
+                    >
                       {user.linkedin ? (
-                        <a href={user.linkedin} target="_blank">
+                        <a
+                          href={user.linkedin}
+                          target="_blank"
+                        >
                           View
                         </a>
                       ) : (
@@ -170,6 +285,7 @@ export default function Users() {
                             cursor: "pointer",
                             fontSize: "14px",
                             fontWeight: "600",
+                            whiteSpace: "nowrap",
                           }}
                         >
                           Edit
@@ -204,6 +320,7 @@ export default function Users() {
         .action-box {
           display: flex;
           gap: 14px;
+          flex-wrap: wrap;
         }
 
         .delete-btn {

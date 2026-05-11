@@ -55,15 +55,18 @@ export default function AddUser() {
     let newErrors = {};
 
     if (!form.name.trim()) newErrors.name = "Name is required";
+
     if (!form.designation.trim())
       newErrors.designation = "Designation required";
 
     if (form.email && !/\S+@\S+\.\S+/.test(form.email))
       newErrors.email = "Invalid email";
 
-    if (form.phone && form.phone.length < 10) newErrors.phone = "Invalid phone";
+    if (form.phone && form.phone.length < 10)
+      newErrors.phone = "Invalid phone";
 
     setErrors(newErrors);
+
     return Object.keys(newErrors).length === 0;
   };
 
@@ -101,16 +104,19 @@ export default function AddUser() {
       style={{
         minHeight: "100vh",
         background: "#fff",
-        padding: "20px",
+        padding: "clamp(10px, 2vw, 20px)",
+        boxSizing: "border-box",
+        overflowX: "hidden",
       }}
     >
       {/* BLUE CONTAINER */}
       <div
         style={{
           background: "#c8d8e8",
-          borderRadius: "28px",
+          borderRadius: "clamp(18px, 3vw, 28px)",
           minHeight: "calc(100vh - 40px)",
-          padding: "20px",
+          padding: "clamp(14px, 3vw, 20px)",
+          boxSizing: "border-box",
         }}
       >
         {/* HEADER */}
@@ -149,12 +155,14 @@ export default function AddUser() {
             justifyContent: "center",
             boxShadow: "0 10px 40px rgba(0,0,0,0.08)",
             marginTop: "40px",
+            boxSizing: "border-box",
           }}
         >
           <div
             style={{
               display: "flex",
               gap: "25px",
+              flexWrap: "wrap",
             }}
           >
             {/* IMAGE */}
@@ -197,6 +205,7 @@ export default function AddUser() {
                 onChange={handleChange}
                 style={{
                   marginTop: "10px",
+                  maxWidth: "100%",
                 }}
               />
 
@@ -214,11 +223,16 @@ export default function AddUser() {
             </div>
 
             {/* FORM */}
-            <div style={{ flex: 1 }}>
+            <div
+              style={{
+                flex: 1,
+              }}
+            >
               <div
                 style={{
                   display: "grid",
-                  gridTemplateColumns: "1fr 1fr",
+                  gridTemplateColumns:
+                    "repeat(auto-fit, minmax(240px, 1fr))",
                   gap: "15px",
                 }}
               >
@@ -280,6 +294,7 @@ export default function AddUser() {
                     cursor: "pointer",
                     fontWeight: "600",
                     fontSize: "14px",
+                    whiteSpace: "nowrap",
                   }}
                 >
                   Save User
@@ -293,9 +308,29 @@ export default function AddUser() {
   );
 }
 
-const Input = ({ name, value, onChange, placeholder, error }) => (
-  <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
-    <label style={{ fontSize: "13px", fontWeight: "600" }}>{placeholder}</label>
+const Input = ({
+  name,
+  value,
+  onChange,
+  placeholder,
+  error,
+}) => (
+  <div
+    style={{
+      display: "flex",
+      flexDirection: "column",
+      gap: "6px",
+      width: "100%",
+    }}
+  >
+    <label
+      style={{
+        fontSize: "13px",
+        fontWeight: "600",
+      }}
+    >
+      {placeholder}
+    </label>
 
     <input
       name={name}
@@ -306,9 +341,20 @@ const Input = ({ name, value, onChange, placeholder, error }) => (
         padding: "12px",
         borderRadius: "10px",
         border: error ? "1px solid red" : "1px solid #ddd",
+        width: "100%",
+        boxSizing: "border-box",
       }}
     />
 
-    {error && <span style={{ color: "red", fontSize: "12px" }}>{error}</span>}
+    {error && (
+      <span
+        style={{
+          color: "red",
+          fontSize: "12px",
+        }}
+      >
+        {error}
+      </span>
+    )}
   </div>
 );

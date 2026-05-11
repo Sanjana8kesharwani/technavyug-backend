@@ -63,9 +63,11 @@ export default function EditUser() {
     if (form.email && !/\S+@\S+\.\S+/.test(form.email))
       newErrors.email = "Invalid email";
 
-    if (form.phone && form.phone.length < 10) newErrors.phone = "Invalid phone";
+    if (form.phone && form.phone.length < 10)
+      newErrors.phone = "Invalid phone";
 
     setErrors(newErrors);
+
     return Object.keys(newErrors).length === 0;
   };
 
@@ -73,19 +75,29 @@ export default function EditUser() {
     if (!validate()) return;
 
     updateUser(user.id, form);
+
     toast.success("User updated successfully 🎉");
 
     navigate("/admin/users");
   };
 
   return (
-    <div style={{ minHeight: "100vh", background: "#fff", padding: "20px" }}>
+    <div
+      style={{
+        minHeight: "100vh",
+        background: "#fff",
+        padding: "clamp(10px, 2vw, 20px)",
+        boxSizing: "border-box",
+        overflowX: "hidden",
+      }}
+    >
       <div
         style={{
           background: "#c8d8e8",
-          borderRadius: "28px",
+          borderRadius: "clamp(18px, 3vw, 28px)",
           minHeight: "calc(100vh - 40px)",
-          padding: "20px",
+          padding: "clamp(14px, 3vw, 20px)",
+          boxSizing: "border-box",
         }}
       >
         {/* HEADER */}
@@ -119,9 +131,16 @@ export default function EditUser() {
             borderRadius: "20px",
             padding: "30px",
             boxShadow: "0 10px 40px rgba(0,0,0,0.08)",
+            boxSizing: "border-box",
           }}
         >
-          <div style={{ display: "flex", gap: "30px" }}>
+          <div
+            style={{
+              display: "flex",
+              gap: "30px",
+              flexWrap: "wrap",
+            }}
+          >
             {/* IMAGE */}
             <div style={{ textAlign: "center" }}>
               <div
@@ -156,7 +175,10 @@ export default function EditUser() {
                 type="file"
                 name="photo"
                 onChange={handleChange}
-                style={{ marginTop: "10px" }}
+                style={{
+                  marginTop: "10px",
+                  maxWidth: "100%",
+                }}
               />
             </div>
 
@@ -165,7 +187,8 @@ export default function EditUser() {
               <div
                 style={{
                   display: "grid",
-                  gridTemplateColumns: "1fr 1fr",
+                  gridTemplateColumns:
+                    "repeat(auto-fit, minmax(240px, 1fr))",
                   gap: "15px",
                 }}
               >
@@ -222,6 +245,8 @@ export default function EditUser() {
                     cursor: "pointer",
                     fontWeight: "600",
                     fontSize: "14px",
+                    whiteSpace: "nowrap",
+                    maxWidth: "100%",
                   }}
                 >
                   Update User
@@ -236,9 +261,29 @@ export default function EditUser() {
 }
 
 /* Input component */
-const Input = ({ name, value, onChange, placeholder, error, disabled }) => (
-  <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
-    <label style={{ fontSize: "13px", fontWeight: "600" }}>{placeholder}</label>
+const Input = ({
+  name,
+  value,
+  onChange,
+  placeholder,
+  error,
+  disabled,
+}) => (
+  <div
+    style={{
+      display: "flex",
+      flexDirection: "column",
+      gap: "6px",
+    }}
+  >
+    <label
+      style={{
+        fontSize: "13px",
+        fontWeight: "600",
+      }}
+    >
+      {placeholder}
+    </label>
 
     <input
       name={name}
@@ -251,9 +296,20 @@ const Input = ({ name, value, onChange, placeholder, error, disabled }) => (
         borderRadius: "10px",
         border: error ? "1px solid red" : "1px solid #ddd",
         background: disabled ? "#f1f5f9" : "#fff",
+        width: "100%",
+        boxSizing: "border-box",
       }}
     />
 
-    {error && <span style={{ color: "red", fontSize: "12px" }}>{error}</span>}
+    {error && (
+      <span
+        style={{
+          color: "red",
+          fontSize: "12px",
+        }}
+      >
+        {error}
+      </span>
+    )}
   </div>
 );
