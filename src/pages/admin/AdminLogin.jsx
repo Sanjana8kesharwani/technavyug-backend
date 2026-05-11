@@ -110,7 +110,7 @@ export default function AdminLogin() {
               lineHeight: "1",
             }}
           >
-            TechNavyug
+            Technavyug
           </h1>
 
           <p
@@ -152,7 +152,7 @@ export default function AdminLogin() {
         >
           <h3
             style={{
-              fontSize: "clamp(36px, 5vw, 52px)",
+              fontSize: "clamp(36px, 5vw, 35px)",
               fontWeight: "800",
               color: "#0f2747",
               marginBottom: "35px",
