@@ -34,114 +34,171 @@ export default function ForgotPassword() {
     <div
       style={{
         minHeight: "100vh",
+        background:
+          "linear-gradient(135deg, #06b6d4 0%, #0891b2 35%, #0f172a 100%)",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
         padding: "20px",
-        background:
-          "linear-gradient(135deg, #061b3a 0%, #0f2747 60%, #0ea5e9 140%)",
+        position: "relative",
+        overflow: "hidden",
       }}
     >
+      {/* Background Circles */}
+      <div
+        style={{
+          position: "absolute",
+          width: "500px",
+          height: "500px",
+          borderRadius: "50%",
+          background: "rgba(255,255,255,0.08)",
+          top: "-150px",
+          right: "-120px",
+        }}
+      />
+
+      <div
+        style={{
+          position: "absolute",
+          width: "350px",
+          height: "350px",
+          borderRadius: "50%",
+          background: "rgba(255,255,255,0.08)",
+          bottom: "-120px",
+          left: "-100px",
+        }}
+      />
+
+      {/* Main Card */}
       <div
         style={{
           width: "100%",
-          maxWidth: "500px",
+          maxWidth: "1050px",
+          minHeight: "620px",
+          display: "flex",
+          borderRadius: "28px",
+          overflow: "hidden",
+          boxShadow: "0 25px 60px rgba(0,0,0,0.25)",
           background: "#fff",
-          borderRadius: "30px",
-          padding: "40px",
-          boxShadow: "0 20px 50px rgba(0,0,0,0.18)",
-          boxSizing: "border-box",
+          position: "relative",
+          zIndex: 2,
         }}
       >
-        {/* Back */}
-        <button
-          onClick={() => navigate(`${LOGIN_URL}`)}
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "8px",
-            background: "transparent",
-            border: "none",
-            color: "#0f2747",
-            cursor: "pointer",
-            marginBottom: "25px",
-            fontWeight: "600",
-            fontSize: "14px",
-          }}
-        >
-          <ArrowLeft size={18} />
-          Back to Login
-        </button>
-
-        {/* Icon */}
+        {/* Left Side */}
         <div
           style={{
-            width: "75px",
-            height: "75px",
-            borderRadius: "20px",
-            background: "linear-gradient(135deg, #06b6d4, #2563eb)",
+            flex: 1,
+            background: "#f8fafc",
+            padding: "60px 55px",
             display: "flex",
-            alignItems: "center",
+            flexDirection: "column",
             justifyContent: "center",
-            marginBottom: "24px",
           }}
         >
-          <ShieldCheck size={38} color="#fff" />
-        </div>
+          {/* Back Button */}
+          <button
+            onClick={() => navigate(`${LOGIN_URL}`)}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "8px",
+              border: "none",
+              background: "transparent",
+              cursor: "pointer",
+              color: "#0f172a",
+              marginBottom: "35px",
+              fontWeight: "600",
+              fontSize: "15px",
+              width: "fit-content",
+            }}
+          >
+            <ArrowLeft size={18} />
+            Back to Login
+          </button>
 
-        {/* Heading */}
-        <h1
-          style={{
-            fontSize: "38px",
-            fontWeight: "800",
-            color: "#0f172a",
-            marginBottom: "12px",
-          }}
-        >
-          Forgot Password
-        </h1>
+          {/* Logo */}
+          <div
+            style={{
+              width: "82px",
+              height: "82px",
+              borderRadius: "22px",
+              background:
+                "linear-gradient(135deg, #06b6d4 0%, #0284c7 100%)",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              marginBottom: "28px",
+              boxShadow: "0 10px 25px rgba(6,182,212,0.35)",
+            }}
+          >
+            <ShieldCheck size={42} color="#fff" />
+          </div>
 
-        <p
-          style={{
-            color: "#64748b",
-            fontSize: "16px",
-            lineHeight: "1.7",
-            marginBottom: "32px",
-          }}
-        >
-          Enter your registered email address and we’ll send you a password
-          reset link.
-        </p>
+          <p
+            style={{
+              color: "#64748b",
+              fontSize: "18px",
+              marginBottom: "10px",
+            }}
+          >
+            Reset your password
+          </p>
 
-        {!success ? (
-          <form onSubmit={handleSubmit}>
-            {/* Email */}
-            <div
-              style={{
-                marginBottom: "20px",
-              }}
-            >
+          <h1
+            style={{
+              fontSize: "54px",
+              fontWeight: "800",
+              color: "#0f172a",
+              lineHeight: "1.1",
+              marginBottom: "18px",
+            }}
+          >
+            Forgot
+            <br />
+            Password
+          </h1>
+
+          <p
+            style={{
+              color: "#64748b",
+              fontSize: "16px",
+              lineHeight: "1.8",
+              marginBottom: "38px",
+              maxWidth: "420px",
+            }}
+          >
+            Enter your registered email address and we’ll send you a secure
+            password reset link instantly.
+          </p>
+
+          {!success ? (
+            <form onSubmit={handleSubmit}>
+              {/* Label */}
               <label
                 style={{
                   display: "block",
-                  marginBottom: "10px",
-                  fontWeight: "600",
+                  marginBottom: "12px",
                   color: "#334155",
+                  fontWeight: "700",
                 }}
               >
                 Email Address
               </label>
 
+              {/* Input */}
               <div
                 style={{
                   display: "flex",
                   alignItems: "center",
+                  background: "#fff",
                   border: "1px solid #dbe2ea",
-                  borderRadius: "14px",
-                  padding: "0 14px",
+                  borderRadius: "16px",
+                  padding: "0 18px",
+                  height: "62px",
+                  marginBottom: "10px",
                 }}
               >
-                <Mail size={20} color="#64748b" />
+                <Mail size={21} color="#64748b" />
 
                 <input
                   type="email"
@@ -150,11 +207,12 @@ export default function ForgotPassword() {
                   onChange={(e) => setEmail(e.target.value)}
                   style={{
                     width: "100%",
-                    padding: "16px",
                     border: "none",
                     outline: "none",
-                    fontSize: "15px",
                     background: "transparent",
+                    padding: "0 14px",
+                    fontSize: "15px",
+                    color: "#0f172a",
                   }}
                 />
               </div>
@@ -163,65 +221,194 @@ export default function ForgotPassword() {
                 <p
                   style={{
                     color: "red",
-                    marginTop: "8px",
+                    marginBottom: "15px",
                     fontSize: "14px",
                   }}
                 >
                   {error}
                 </p>
               )}
-            </div>
 
-            {/* Button */}
-            <button
-              type="submit"
+              {/* Button */}
+              <button
+                type="submit"
+                style={{
+                  width: "100%",
+                  height: "60px",
+                  border: "none",
+                  borderRadius: "16px",
+                  background:
+                    "linear-gradient(135deg, #06b6d4 0%, #0284c7 100%)",
+                  color: "#fff",
+                  fontSize: "18px",
+                  fontWeight: "700",
+                  cursor: "pointer",
+                  marginTop: "12px",
+                  boxShadow: "0 12px 24px rgba(6,182,212,0.30)",
+                }}
+              >
+                Send Reset Link
+              </button>
+            </form>
+          ) : (
+            <div
               style={{
-                width: "100%",
-                background: "linear-gradient(135deg, #06b6d4, #2563eb)",
-                color: "#fff",
-                border: "none",
-                padding: "16px",
-                borderRadius: "14px",
-                fontSize: "18px",
-                fontWeight: "700",
-                cursor: "pointer",
-                marginTop: "10px",
+                background: "#ecfeff",
+                border: "1px solid #a5f3fc",
+                padding: "24px",
+                borderRadius: "18px",
               }}
             >
-              Send Reset Link
-            </button>
-          </form>
-        ) : (
+              <h3
+                style={{
+                  marginTop: 0,
+                  color: "#0f766e",
+                  marginBottom: "10px",
+                }}
+              >
+                Reset Link Sent
+              </h3>
+
+              <p
+                style={{
+                  margin: 0,
+                  color: "#155e75",
+                  lineHeight: "1.7",
+                }}
+              >
+                Password reset instructions have been sent to your email.
+              </p>
+            </div>
+          )}
+        </div>
+
+        {/* Right Side */}
+        <div
+          style={{
+            flex: 1,
+            background:
+              "linear-gradient(135deg, #06b6d4 0%, #0891b2 45%, #0f172a 100%)",
+            color: "#fff",
+            padding: "70px 55px",
+            position: "relative",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+          }}
+        >
+          {/* Overlay circles */}
           <div
             style={{
-              background: "#f0fdf4",
-              border: "1px solid #bbf7d0",
-              borderRadius: "18px",
-              padding: "24px",
+              position: "absolute",
+              width: "300px",
+              height: "300px",
+              borderRadius: "50%",
+              background: "rgba(255,255,255,0.08)",
+              top: "-60px",
+              left: "-60px",
             }}
-          >
-            <h3
+          />
+
+          <div
+            style={{
+              position: "absolute",
+              width: "220px",
+              height: "220px",
+              borderRadius: "50%",
+              background: "rgba(255,255,255,0.08)",
+              bottom: "30px",
+              right: "-40px",
+            }}
+          />
+
+          <div style={{ position: "relative", zIndex: 2 }}>
+            <h1
               style={{
-                color: "#166534",
-                marginTop: 0,
-                marginBottom: "10px",
+                fontSize: "52px",
+                fontWeight: "800",
+                marginBottom: "22px",
+                lineHeight: "1.1",
               }}
             >
-              Reset Link Sent
-            </h3>
+              Secure
+              <br />
+              Recovery
+            </h1>
 
             <p
               style={{
-                color: "#166534",
-                lineHeight: "1.7",
-                margin: 0,
+                fontSize: "17px",
+                lineHeight: "2",
+                color: "rgba(255,255,255,0.88)",
+                maxWidth: "420px",
+                marginBottom: "40px",
               }}
             >
-              A password reset link has been sent to your email address.
+              Your account security matters. Recover access safely using our
+              protected password reset system with encrypted verification.
             </p>
+
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                gap: "18px",
+              }}
+            >
+              {[
+                "Secure Password Recovery",
+                "Encrypted Verification Process",
+                "Responsive Modern UI",
+                "Fast & Safe Access Restoration",
+              ].map((item, index) => (
+                <div
+                  key={index}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "14px",
+                    fontSize: "16px",
+                  }}
+                >
+                  <div
+                    style={{
+                      width: "10px",
+                      height: "10px",
+                      borderRadius: "50%",
+                      background: "#fff",
+                    }}
+                  />
+
+                  {item}
+                </div>
+              ))}
+            </div>
           </div>
-        )}
+        </div>
       </div>
+
+      {/* Responsive */}
+      <style>
+        {`
+          @media (max-width: 900px) {
+            .hide-mobile {
+              display: none;
+            }
+          }
+
+          @media (max-width: 900px) {
+            div[style*="max-width: 1050px"] {
+              flex-direction: column;
+            }
+          }
+
+          @media (max-width: 768px) {
+            h1 {
+              font-size: 38px !important;
+            }
+          }
+        `}
+      </style>
     </div>
   );
 }
