@@ -1,95 +1,206 @@
-import { useState } from "react";
-import DashboardLayout from "../layouts/DashboardLayout";
+import { useState, useEffect } from "react";
+import MainLayout from "../layouts/MainLayout";
+import { Html5QrcodeScanner } from "html5-qrcode";
 import toast from "react-hot-toast";
 
-const Verify = () => {
-  const [input, setInput] = useState("");
+export default function Verify() {
+  const [certId, setCertId] = useState("");
   const [result, setResult] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [scanOpen, setScanOpen] = useState(false);
 
-  const handleVerify = () => {
-
-    if (!input) {
-      toast.error("Please enter Certificate ID ❌");
+  // VERIFY
+  const handleVerify = (id = certId) => {
+    if (!id) {
+      toast.error("Please enter Certificate ID");
       return;
     }
 
-    // 🔥 Get from localStorage (REAL DATA)
-    const data = JSON.parse(localStorage.getItem("certificates")) || [];
+    setLoading(true);
 
-    const cert = data.find((c) => c.id === input);
+    setTimeout(() => {
+      if (id === "123") {
+        setResult({
+          valid: true,
+          name: "Aryan Sharma",
+          course: "AI Internship",
+          date: "2024",
+          issuer: "Technavyug",
+          certificateUrl:
+            "https://images.unsplash.com/photo-1507842217343-583bb7270b66?w=800",
+        });
 
-    if (!cert) {
-      setResult("invalid");
-      toast.error("Invalid Certificate ❌");
-    } else {
-      setResult(cert);
-      toast.success("Certificate Verified ✅");
+        toast.success("Certificate Verified Successfully");
+      } else {
+        setResult({ valid: false });
+        toast.error("Invalid Certificate ID");
+      }
+      setLoading(false);
+    }, 1000);
+  };
+
+  // QR SCANNER
+  useEffect(() => {
+    if (scanOpen) {
+      const scanner = new Html5QrcodeScanner(
+        "qr-reader",
+        { fps: 10, qrbox: 250 },
+        false
+      );
+
+      scanner.render(
+        (decodedText) => {
+          toast.success("QR scanned successfully");
+          setCertId(decodedText);
+          setScanOpen(false);
+          handleVerify(decodedText);
+          scanner.clear();
+        },
+        () => {}
+      );
+
+      return () => scanner.clear().catch(() => {});
     }
+  }, [scanOpen]);
+
+  // DOWNLOAD
+  const handleDownload = () => {
+    if (!result?.certificateUrl) return;
+    const link = document.createElement("a");
+    link.href = result.certificateUrl;
+    link.download = "certificate.jpg";
+    link.click();
   };
 
   return (
-    <DashboardLayout>
+    <MainLayout>
+      <div className="pt-28 px-6 max-w-5xl mx-auto pb-16">
 
-      <div className="flex flex-col items-center justify-center mt-20">
-
-        <h1 className="text-3xl font-bold mb-6 text-white">
-          Verify Certificate 🔍
-        </h1>
-
-        {/* Input */}
-        <input
-          type="text"
-          placeholder="Enter Certificate ID"
-          className="px-5 py-3 rounded-xl bg-white/10 border border-white/20 text-white mb-4 w-80 outline-none"
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-        />
-
-        {/* Button */}
-        <button
-          onClick={handleVerify}
-          className="bg-gradient-to-r from-blue-500 to-purple-600 px-6 py-3 rounded-xl hover:scale-105 transition shadow-lg text-white"
-        >
-          Verify
-        </button>
-
-        {/* Result */}
-        <div className="mt-8 text-center">
-
-          {result === "invalid" && (
-            <p className="text-red-500 font-semibold">
-              Invalid Certificate ❌
-            </p>
-          )}
-
-          {result && result !== "invalid" && (
-            <div className="bg-white/10 backdrop-blur-lg p-6 rounded-xl border border-white/20 shadow-lg">
-
-              <p className="text-green-400 font-semibold mb-2">
-                Valid Certificate ✅
-              </p>
-
-              <p className="text-white font-bold text-lg">
-                {result.name}
-              </p>
-
-              <p className="text-gray-400">
-                {result.course}
-              </p>
-
-              <p className="text-sm text-gray-500 mt-2">
-                ID: {result.id}
-              </p>
-
-            </div>
-          )}
-
+        {/* HEADER */}
+        <div className="text-center mb-10">
+          <h1 className="text-4xl font-bold text-gray-900">
+            Verify <span className="text-cyan-500">Certificate</span>
+          </h1>
+          <p className="text-gray-400 mt-2 text-sm">
+            Enter Certificate ID or scan QR to validate authenticity
+          </p>
         </div>
 
+        {/* INPUT */}
+        <div className="bg-white border border-gray-100 rounded-2xl p-5 shadow-sm flex flex-col gap-4">
+
+          <div className="flex flex-col md:flex-row gap-3">
+            <input
+              type="text"
+              placeholder="Enter Certificate ID..."
+              value={certId}
+              onChange={(e) => setCertId(e.target.value)}
+              className="flex-1 px-4 py-3 rounded-xl border border-gray-200 bg-gray-50 focus:ring-2 focus:ring-cyan-400 outline-none"
+            />
+
+            <button
+              onClick={() => handleVerify()}
+              className="bg-cyan-500 text-white px-6 rounded-xl font-semibold hover:bg-cyan-600 transition"
+            >
+              {loading ? "Verifying..." : "Verify"}
+            </button>
+
+            <button
+              onClick={() => setScanOpen(!scanOpen)}
+              className="border border-gray-200 px-5 rounded-xl text-gray-600 hover:bg-gray-50"
+            >
+              {scanOpen ? "Close Scanner" : "Scan QR"}
+            </button>
+          </div>
+
+          {/* QR */}
+          {scanOpen && (
+            <div className="mt-3 border rounded-xl p-3">
+              <div id="qr-reader"></div>
+            </div>
+          )}
+        </div>
+
+        {/* RESULT */}
+        {result && (
+          <div className="mt-10">
+
+            {/*  INVALID */}
+            {!result.valid ? (
+              <div className="bg-white border border-red-100 rounded-2xl p-6 text-center shadow-sm">
+                <p className="text-red-500 font-semibold text-lg">
+                  ❌ Invalid Certificate
+                </p>
+                <p className="text-gray-400 text-sm mt-2">
+                  No record found. Please check your ID.
+                </p>
+              </div>
+            ) : (
+              <div className="bg-white border border-gray-100 rounded-2xl shadow-md overflow-hidden">
+
+                {/* STATUS */}
+                <div className="bg-green-50 text-green-600 text-center py-3 font-semibold text-sm">
+                  ✔ Certificate Verified Successfully
+                </div>
+
+                <div className="p-6 grid md:grid-cols-2 gap-6 items-start">
+
+                  {/* LEFT DETAILS */}
+                  <div className="space-y-3 text-sm">
+                    <div>
+                      <p className="text-gray-400">Name</p>
+                      <p className="font-semibold text-gray-900">{result.name}</p>
+                    </div>
+
+                    <div>
+                      <p className="text-gray-400">Course</p>
+                      <p className="font-semibold text-gray-900">{result.course}</p>
+                    </div>
+
+                    <div>
+                      <p className="text-gray-400">Issued By</p>
+                      <p className="font-semibold text-gray-900">{result.issuer}</p>
+                    </div>
+
+                    <div>
+                      <p className="text-gray-400">Date</p>
+                      <p className="font-semibold text-gray-900">{result.date}</p>
+                    </div>
+
+                    {/* DOWNLOAD */}
+                    <button
+                      onClick={handleDownload}
+                      className="mt-4 w-full bg-gradient-to-r from-cyan-500 to-blue-500 text-white py-2.5 rounded-xl font-semibold shadow-md hover:scale-[1.02] transition"
+                    >
+                      ⬇ Download Certificate
+                    </button>
+
+                    {/* TRUST TEXT */}
+                    <p className="text-[11px] text-gray-400 text-center">
+                      Verified and issued by Technavyug
+                    </p>
+                  </div>
+
+                  {/* RIGHT PREVIEW */}
+                  <div className="bg-gray-50 border border-gray-200 rounded-xl p-3">
+                    <p className="text-xs text-gray-400 mb-2">
+                      Certificate Preview
+                    </p>
+
+                    <img
+                      src={result.certificateUrl}
+                      alt="certificate"
+                      className="rounded-lg shadow-sm"
+                    />
+                  </div>
+
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+
       </div>
-
-    </DashboardLayout>
+    </MainLayout>
   );
-};
-
-export default Verify;
+}
