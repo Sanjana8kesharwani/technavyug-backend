@@ -1,4 +1,4 @@
-# TechNavyug Portfolio Management System
+# Technavyug Portfolio Management System
 
 A modern and scalable portfolio management platform built to showcase company projects, research work, technical case studies, and innovations in a professional and organized way.
 
