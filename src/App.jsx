@@ -23,7 +23,7 @@ import AdminProfile from "./pages/admin/AdminProfile";
 import Dashboard from "./pages/admin/Dashboard";
 import ProtectedRoute from "./components/ProtectedRoute";
 import AddUser from "./pages/admin/users/AddUser";
-import GenerateCertificate from "./pages/admin/certificates/GenerateCertificate";
+//import GenerateCertificate from "./pages/admin/certificates/GenerateCertificate";
 import Achievements from "./pages/admin/achievements/Achievements";
 import Users from "./pages/admin/users/Users";
 import UsersProvider from "./provider/UsersProvider";
@@ -62,7 +62,7 @@ function App() {
           <AchievementsProvider>
             <ProjectsProvider>
               {" "}
-              {/* 🔥 ADD THIS */}
+              {/* ADD THIS */}
               <CursorGlow />
               <Toaster
                 position="top-right"
@@ -139,7 +139,7 @@ function App() {
                     element={<EditCertificate />}
                   />
 
-                  <Route path="generate" element={<GenerateCertificate />} />
+                  {/* <Route path="generate" element={<GenerateCertificate />} /> */}
 
                   <Route path="/admin/settings" element={<Settings />} />
                   <Route
