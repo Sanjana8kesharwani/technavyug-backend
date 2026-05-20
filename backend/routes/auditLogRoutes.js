@@ -1,9 +1,8 @@
-// routes/auditLogRoutes.js
-const express = require('express');
-const { protect } = require('../middleware/auth');
-const { getAuditLogs } = require('../controllers/auditLogController');
+import { Router } from "express";
+import { protect } from "../middleware/auth.js";
+import { getAuditLogs } from "../controllers/auditLogController.js";
 
-const router = express.Router();
-router.get('/', protect, getAuditLogs);
+const router = Router();
+router.get("/", protect, getAuditLogs);
 
-module.exports = router;
+export default router;

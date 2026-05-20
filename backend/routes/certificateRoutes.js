@@ -1,29 +1,42 @@
-// routes/certificateRoutes.js
-const express = require('express');
-const { body } = require('express-validator');
-const { validate } = require('../middleware/validate');
-const { protect } = require('../middleware/auth');
-const upload = require('../middleware/upload');
-const { getCertificates, getCertificate, createCertificate, updateCertificate, deleteCertificate, verifyCertificate } = require('../controllers/certificateController');
+import { Router } from "express";
+import { body } from "express-validator";
+import { validate } from "../middleware/validate.js";
+import { protect } from "../middleware/auth.js";
+import upload from "../middleware/upload.js";
+import {
+  getCertificates,
+  getCertificate,
+  createCertificate,
+  updateCertificate,
+  deleteCertificate,
+  verifyCertificate,
+} from "../controllers/certificateController.js";
 
-const router = express.Router();
+const router = Router();
 
 const rules = [
-  body('certificateTitle', 'Title is required').notEmpty(),
-  body('issuingOrganization', 'Organization is required').notEmpty(),
-  body('issueDate', 'Issue date is required').notEmpty(),
+  body("certificateTitle", "Title is required").notEmpty(),
+  body("issuingOrganization", "Organization is required").notEmpty(),
+  body("issueDate", "Issue date is required").notEmpty(),
 ];
 
-// PUBLIC verification endpoint (must come BEFORE /:id to avoid conflict)
-router.get('/verify/:certificateId', verifyCertificate);
+router.get("/verify/:certificateId", verifyCertificate);
 
-router.route('/')
+router
+  .route("/")
   .get(protect, getCertificates)
-  .post(protect, upload.single('certificateFile'), rules, validate, createCertificate);
+  .post(
+    protect,
+    upload.single("certificateFile"),
+    rules,
+    validate,
+    createCertificate,
+  );
 
-router.route('/:id')
+router
+  .route("/:id")
   .get(protect, getCertificate)
-  .put(protect, upload.single('certificateFile'), updateCertificate)
+  .put(protect, upload.single("certificateFile"), updateCertificate)
   .delete(protect, deleteCertificate);
 
-module.exports = router;
+export default router;

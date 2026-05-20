@@ -1,30 +1,54 @@
-// models/Admin.js
-const mongoose = require('mongoose');
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
+import mongoose from "mongoose";
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
+import crypto from "crypto";
 
-const adminSchema = new mongoose.Schema({
-  name:     { type: String, required: [true, 'Name is required'] },
-  email:    { type: String, required: [true, 'Email is required'], unique: true,
-              match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Invalid email'] },
-  password: { type: String, required: [true, 'Password is required'], minlength: 6, select: false },
-  role:     { type: String, enum: ['admin', 'superadmin'], default: 'admin' },
-}, { timestamps: true });
+const adminSchema = new mongoose.Schema(
+  {
+    name: { type: String, required: [true, "Name is required"] },
+    email: {
+      type: String,
+      required: [true, "Email is required"],
+      unique: true,
+      match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, "Invalid email"],
+    },
+    password: {
+      type: String,
+      required: [true, "Password is required"],
+      minlength: 6,
+      select: false,
+    },
+    role: { type: String, enum: ["admin", "superadmin"], default: "admin" },
+    resetPasswordToken: { type: String, select: false },
+    resetPasswordExpire: { type: Date, select: false },
+  },
+  { timestamps: true },
+);
 
-// Hash password before save
-adminSchema.pre('save', async function (next) {
-  if (!this.isModified('password')) return next();
+adminSchema.pre("save", async function (next) {
+  if (!this.isModified("password")) return next();
   this.password = await bcrypt.hash(this.password, 10);
+  next();
 });
 
-// Generate signed JWT
 adminSchema.methods.getSignedJwtToken = function () {
-  return jwt.sign({ id: this._id }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRE });
+  return jwt.sign({ id: this._id }, process.env.JWT_SECRET, {
+    expiresIn: process.env.JWT_EXPIRE,
+  });
 };
 
-// Compare entered password with hash
 adminSchema.methods.matchPassword = async function (entered) {
   return bcrypt.compare(entered, this.password);
 };
 
-module.exports = mongoose.model('Admin', adminSchema);
+adminSchema.methods.getResetPasswordToken = function () {
+  const resetToken = crypto.randomBytes(20).toString("hex");
+  this.resetPasswordToken = crypto
+    .createHash("sha256")
+    .update(resetToken)
+    .digest("hex");
+  this.resetPasswordExpire = Date.now() + 15 * 60 * 1000;
+  return resetToken;
+};
+
+export default mongoose.model("Admin", adminSchema);

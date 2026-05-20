@@ -1,26 +1,33 @@
-// routes/userRoutes.js
-const express = require('express');
-const { body } = require('express-validator');
-const { validate } = require('../middleware/validate');
-const { protect } = require('../middleware/auth');
-const upload = require('../middleware/upload');
-const { getUsers, getUser, createUser, updateUser, deleteUser } = require('../controllers/userController');
+import { Router } from "express";
+import { body } from "express-validator";
+import { validate } from "../middleware/validate.js";
+import { protect } from "../middleware/auth.js";
+import upload from "../middleware/upload.js";
+import {
+  getUsers,
+  getUser,
+  createUser,
+  updateUser,
+  deleteUser,
+} from "../controllers/userController.js";
 
-const router = express.Router();
+const router = Router();
 
 const userRules = [
-  body('fullName', 'Full name is required').notEmpty(),
-  body('email', 'Valid email is required').isEmail(),
-  body('designation', 'Designation is required').notEmpty(),
+  body("fullName", "Full name is required").notEmpty(),
+  body("email", "Valid email is required").isEmail(),
+  body("designation", "Designation is required").notEmpty(),
 ];
 
-router.route('/')
-  .get(getUsers)                                                                // public
-  .post(protect, upload.single('profilePhoto'), userRules, validate, createUser); // protected
+router
+  .route("/")
+  .get(getUsers)
+  .post(protect, upload.single("profilePhoto"), userRules, validate, createUser);
 
-router.route('/:id')
+router
+  .route("/:id")
   .get(getUser)
-  .put(protect, upload.single('profilePhoto'), updateUser)
+  .put(protect, upload.single("profilePhoto"), updateUser)
   .delete(protect, deleteUser);
 
-module.exports = router;
+export default router;

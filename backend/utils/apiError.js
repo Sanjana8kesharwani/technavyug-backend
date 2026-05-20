@@ -1,4 +1,3 @@
-// utils/apiError.js — Custom error class for consistent API error responses
 class ApiError extends Error {
   constructor(statusCode, message, errors = []) {
     super(message);
@@ -9,4 +8,4 @@ class ApiError extends Error {
   }
 }
 
-module.exports = ApiError;
+export default ApiError;
