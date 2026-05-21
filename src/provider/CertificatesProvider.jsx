@@ -1,21 +1,30 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import toast from "react-hot-toast";
 import CertificatesContext from "../context/CertificatesContext";
 
 const CertificatesProvider = ({ children }) => {
-  const [certificates, setCertificates] = useState([
-    {
-      id: 1,
-      certificateId: "CERT-2026-001",
-      title: "AWS Certified Solutions Architect",
-      organization: "Amazon Web Services",
-      category: "Cloud",
-      user: "Sanjana Kesharwani",
-      issueDate: "2026-05-12",
-      verified: true,
-      preview:
-        "https://images.unsplash.com/photo-1521791136064-7986c2920216?q=80&w=1200&auto=format&fit=crop",
-    },
-  ]);
+  const [certificates, setCertificates] = useState([]);
+
+  useEffect(() => {
+    const fetchCertificates = async () => {
+      try {
+        const res = await fetch(`${process.env.VITE_BACKEND_URL || ""}/api/certificates`);
+        if (!res.ok) {
+          throw new Error("Failed to load certificates from server");
+        }
+        const data = await res.json();
+        // Assuming ApiResponse structure { success, data }
+        const certs = data?.data || [];
+        setCertificates(certs);
+      } catch (err) {
+        // Show toast only on certificates page; provider is scoped globally but this will only run when provider mounts (i.e., on any admin route). To avoid global toast, check if document.title includes "Certificates"
+        if (document.title.includes("Certificates")) {
+          toast.error(err.message || "Failed to load certificates from server");
+        }
+      }
+    };
+    fetchCertificates();
+  }, []);
 
   const addCertificate = (certificate) => {
     setCertificates((prev) => [...prev, certificate]);
