@@ -1,15 +1,42 @@
-import mongoose from "mongoose";
+import { DataTypes } from "sequelize";
+import { sequelize } from "../config/db.js";
 
-const achievementSchema = new mongoose.Schema(
+const Achievement = sequelize.define(
+  "Achievement",
   {
-    title: { type: String, required: true },
-    type: { type: String, required: true },
-    description: { type: String, required: true },
-    issuingAuthority: { type: String, required: true },
-    badgeImage: { type: String, default: "" },
-    featured: { type: Boolean, default: false },
+    id: {
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
+      primaryKey: true,
+    },
+    title: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    type: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    description: {
+      type: DataTypes.TEXT,
+      allowNull: false,
+    },
+    issuingAuthority: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    badgeImage: {
+      type: DataTypes.STRING,
+      defaultValue: "",
+    },
+    featured: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
+    },
   },
-  { timestamps: true },
+  {
+    timestamps: true,
+  }
 );
 
-export default mongoose.model("Achievement", achievementSchema);
+export default Achievement;

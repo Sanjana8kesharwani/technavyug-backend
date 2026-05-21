@@ -1,54 +1,95 @@
-import mongoose from "mongoose";
+import { DataTypes } from "sequelize";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import crypto from "crypto";
+import { sequelize } from "../config/db.js";
 
-const adminSchema = new mongoose.Schema(
+const Admin = sequelize.define(
+  "Admin",
   {
-    name: { type: String, required: [true, "Name is required"] },
+    id: {
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
+      primaryKey: true,
+    },
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: { msg: "Name is required" },
+      },
+    },
     email: {
-      type: String,
-      required: [true, "Email is required"],
+      type: DataTypes.STRING,
+      allowNull: false,
       unique: true,
-      match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, "Invalid email"],
+      validate: {
+        isEmail: { msg: "Invalid email" },
+        notEmpty: { msg: "Email is required" },
+      },
     },
     password: {
-      type: String,
-      required: [true, "Password is required"],
-      minlength: 6,
-      select: false,
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        len: {
+          args: [6, 100],
+          msg: "Password must be at least 6 characters",
+        },
+      },
     },
-    role: { type: String, enum: ["admin", "superadmin"], default: "admin" },
-    resetPasswordToken: { type: String, select: false },
-    resetPasswordExpire: { type: Date, select: false },
+    role: {
+      type: DataTypes.ENUM("admin", "superadmin"),
+      defaultValue: "admin",
+    },
+    resetPasswordToken: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    resetPasswordExpire: {
+      type: DataTypes.DATE,
+      allowNull: true,
+    },
   },
-  { timestamps: true },
+  {
+    timestamps: true,
+    defaultScope: {
+      attributes: { exclude: ["password", "resetPasswordToken", "resetPasswordExpire"] },
+    },
+    scopes: {
+      withPassword: {
+        attributes: {},
+      },
+    },
+  }
 );
 
-adminSchema.pre("save", async function (next) {
-  if (!this.isModified("password")) return next();
-  this.password = await bcrypt.hash(this.password, 10);
-  next();
+// Hooks
+Admin.beforeSave(async (admin) => {
+  if (admin.changed("password")) {
+    admin.password = await bcrypt.hash(admin.password, 10);
+  }
 });
 
-adminSchema.methods.getSignedJwtToken = function () {
-  return jwt.sign({ id: this._id }, process.env.JWT_SECRET, {
+// Instance methods
+Admin.prototype.getSignedJwtToken = function () {
+  return jwt.sign({ id: this.id }, process.env.JWT_SECRET, {
     expiresIn: process.env.JWT_EXPIRE,
   });
 };
 
-adminSchema.methods.matchPassword = async function (entered) {
+Admin.prototype.matchPassword = async function (entered) {
   return bcrypt.compare(entered, this.password);
 };
 
-adminSchema.methods.getResetPasswordToken = function () {
+Admin.prototype.getResetPasswordToken = function () {
   const resetToken = crypto.randomBytes(20).toString("hex");
   this.resetPasswordToken = crypto
     .createHash("sha256")
     .update(resetToken)
     .digest("hex");
-  this.resetPasswordExpire = Date.now() + 15 * 60 * 1000;
+  this.resetPasswordExpire = new Date(Date.now() + 15 * 60 * 1000);
   return resetToken;
 };
 
-export default mongoose.model("Admin", adminSchema);
+export default Admin;

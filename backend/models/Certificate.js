@@ -1,19 +1,60 @@
-import mongoose from "mongoose";
+import { DataTypes } from "sequelize";
+import { sequelize } from "../config/db.js";
+import User from "./User.js";
 
-const certificateSchema = new mongoose.Schema(
+const Certificate = sequelize.define(
+  "Certificate",
   {
-    certificateTitle: { type: String, required: true },
-    issuingOrganization: { type: String, required: true },
-    issueDate: { type: Date, required: true },
-    certificateId: { type: String, required: true, unique: true },
-    verificationUrl: { type: String, default: "" },
-    certificateFile: { type: String, default: "" },
-    category: { type: String, default: "" },
-    userId: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
-    qrCode: { type: String, default: "" },
-    verified: { type: Boolean, default: true },
+    id: {
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
+      primaryKey: true,
+    },
+    certificateTitle: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    issuingOrganization: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    issueDate: {
+      type: DataTypes.DATE,
+      allowNull: false,
+    },
+    certificateId: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true,
+    },
+    verificationUrl: {
+      type: DataTypes.STRING,
+      defaultValue: "",
+    },
+    certificateFile: {
+      type: DataTypes.STRING,
+      defaultValue: "",
+    },
+    category: {
+      type: DataTypes.STRING,
+      defaultValue: "",
+    },
+    qrCode: {
+      type: DataTypes.TEXT("long"),
+      defaultValue: "",
+    },
+    verified: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: true,
+    },
   },
-  { timestamps: true },
+  {
+    timestamps: true,
+  }
 );
 
-export default mongoose.model("Certificate", certificateSchema);
+Certificate.belongsTo(User, {
+  foreignKey: "userId",
+  as: "user",
+});
+export default Certificate;

@@ -4,6 +4,7 @@ import Certificate from "../models/Certificate.js";
 import Achievement from "../models/Achievement.js";
 import asyncHandler from "../utils/asyncHandler.js";
 import ApiResponse from "../utils/apiResponse.js";
+import { sequelize } from "../config/db.js";
 
 export const getDashboardStats = asyncHandler(async (_req, res) => {
   const [
@@ -14,47 +15,87 @@ export const getDashboardStats = asyncHandler(async (_req, res) => {
     featuredProjects,
     publicProjects,
   ] = await Promise.all([
-    User.countDocuments(),
-    Project.countDocuments(),
-    Certificate.countDocuments(),
-    Achievement.countDocuments(),
-    Project.countDocuments({ featured: true }),
-    Project.countDocuments({ visibility: "Public" }),
+    User.count(),
+    Project.count(),
+    Certificate.count(),
+    Achievement.count(),
+    Project.count({ where: { featured: true } }),
+    Project.count({ where: { visibility: "Public" } }),
   ]);
 
-  const achievementsByDomain = await Achievement.aggregate([
-    { $group: { _id: "$type", count: { $sum: 1 } } },
-  ]);
+  const achievementsByDomainRaw = await Achievement.findAll({
+    attributes: [
+      ["type", "_id"],
+      [sequelize.fn("COUNT", sequelize.col("type")), "count"],
+    ],
+    group: ["type"],
+  });
 
-  const certificatesPerMonth = await Certificate.aggregate([
-    { $group: { _id: { $month: "$issueDate" }, count: { $sum: 1 } } },
-    { $sort: { _id: 1 } },
-  ]);
+  const achievementsByDomain = achievementsByDomainRaw.map((r) => {
+    const raw = r.get({ plain: true });
+    return {
+      _id: raw._id,
+      count: parseInt(raw.count, 10) || 0,
+    };
+  });
 
-  const userGrowth = await User.aggregate([
-    { $group: { _id: { $month: "$createdAt" }, count: { $sum: 1 } } },
-    { $sort: { _id: 1 } },
-  ]);
+  const certificatesPerMonthRaw = await Certificate.findAll({
+    attributes: [
+      [sequelize.fn("MONTH", sequelize.col("issueDate")), "_id"],
+      [sequelize.fn("COUNT", sequelize.col("id")), "count"],
+    ],
+    group: [sequelize.fn("MONTH", sequelize.col("issueDate"))],
+    order: [[sequelize.literal("_id"), "ASC"]],
+  });
 
-  const recentUsers = await User.find()
-    .sort({ createdAt: -1 })
-    .limit(2)
-    .select("fullName createdAt");
+  const certificatesPerMonth = certificatesPerMonthRaw.map((r) => {
+    const raw = r.get({ plain: true });
+    return {
+      _id: raw._id,
+      count: parseInt(raw.count, 10) || 0,
+    };
+  });
 
-  const recentProjects = await Project.find()
-    .sort({ createdAt: -1 })
-    .limit(2)
-    .select("title createdAt");
+  const userGrowthRaw = await User.findAll({
+    attributes: [
+      [sequelize.fn("MONTH", sequelize.col("createdAt")), "_id"],
+      [sequelize.fn("COUNT", sequelize.col("id")), "count"],
+    ],
+    group: [sequelize.fn("MONTH", sequelize.col("createdAt"))],
+    order: [[sequelize.literal("_id"), "ASC"]],
+  });
 
-  const recentCertificates = await Certificate.find()
-    .sort({ createdAt: -1 })
-    .limit(2)
-    .select("certificateTitle createdAt");
+  const userGrowth = userGrowthRaw.map((r) => {
+    const raw = r.get({ plain: true });
+    return {
+      _id: raw._id,
+      count: parseInt(raw.count, 10) || 0,
+    };
+  });
 
-  const recentAchievements = await Achievement.find()
-    .sort({ createdAt: -1 })
-    .limit(2)
-    .select("title createdAt");
+  const recentUsers = await User.findAll({
+    attributes: ["fullName", "createdAt"],
+    order: [["createdAt", "DESC"]],
+    limit: 2,
+  });
+
+  const recentProjects = await Project.findAll({
+    attributes: ["title", "createdAt"],
+    order: [["createdAt", "DESC"]],
+    limit: 2,
+  });
+
+  const recentCertificates = await Certificate.findAll({
+    attributes: ["certificateTitle", "createdAt"],
+    order: [["createdAt", "DESC"]],
+    limit: 2,
+  });
+
+  const recentAchievements = await Achievement.findAll({
+    attributes: ["title", "createdAt"],
+    order: [["createdAt", "DESC"]],
+    limit: 2,
+  });
 
   const recentUploads = [
     ...recentUsers.map((u) => ({

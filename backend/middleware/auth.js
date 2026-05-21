@@ -14,7 +14,7 @@ const protect = asyncHandler(async (req, _res, next) => {
   if (!token) throw new ApiError(401, "Not authorised, no token provided");
 
   const decoded = jwt.verify(token, process.env.JWT_SECRET);
-  const admin = await Admin.findById(decoded.id).select("-password");
+  const admin = await Admin.findByPk(decoded.id);
   if (!admin) throw new ApiError(401, "Not authorised, admin not found");
 
   req.admin = admin;
@@ -32,7 +32,7 @@ const optionalAuth = asyncHandler(async (req, _res, next) => {
   if (token) {
     try {
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
-      req.admin = await Admin.findById(decoded.id).select("-password");
+      req.admin = await Admin.findByPk(decoded.id);
     } catch (_e) {
       /* token invalid on public route, continue without admin */
     }

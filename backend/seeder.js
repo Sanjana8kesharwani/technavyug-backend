@@ -1,12 +1,12 @@
 import "dotenv/config";
-import mongoose from "mongoose";
 import Admin from "./models/Admin.js";
 import connectDB from "./config/db.js";
 
 const seedAdmin = async () => {
+  // Setup MySQL connection and sync tables
   await connectDB();
 
-  const existing = await Admin.findOne({ email: "admin@gmail.com" });
+  const existing = await Admin.findOne({ where: { email: "admin@gmail.com" } });
   if (existing) {
     console.log("Admin already exists");
     process.exit(0);

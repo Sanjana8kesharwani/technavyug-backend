@@ -6,6 +6,18 @@ const errorHandler = (err, _req, res, _next) => {
 
   console.error(err);
 
+  // Sequelize unique constraint error mapping
+  if (err.name === "SequelizeUniqueConstraintError") {
+    const field = err.errors.map((e) => e.path).join(", ");
+    error = new ApiError(400, `Duplicate value for field: ${field}`);
+  }
+
+  // Sequelize validation error mapping
+  if (err.name === "SequelizeValidationError") {
+    const message = err.errors.map((e) => e.message).join(", ");
+    error = new ApiError(400, message);
+  }
+
   if (err.name === "CastError") {
     error = new ApiError(404, `Resource not found with id ${err.value}`);
   }

@@ -1,33 +1,126 @@
-import mongoose from "mongoose";
+import { DataTypes } from "sequelize";
+import { sequelize } from "../config/db.js";
+import User from "./User.js";
 
-const projectSchema = new mongoose.Schema(
+const Project = sequelize.define(
+  "Project",
   {
-    title: { type: String, required: true },
-    category: { type: String, required: true },
-    shortDescription: { type: String, required: true },
-    fullDescription: { type: String, required: true },
-    teamMembers: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
-    startDate: { type: Date },
-    endDate: { type: Date },
+    id: {
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
+      primaryKey: true,
+    },
+    title: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    category: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    shortDescription: {
+      type: DataTypes.TEXT,
+      allowNull: false,
+    },
+    fullDescription: {
+      type: DataTypes.TEXT,
+      allowNull: false,
+    },
+    startDate: {
+      type: DataTypes.DATE,
+      allowNull: true,
+    },
+    endDate: {
+      type: DataTypes.DATE,
+      allowNull: true,
+    },
     status: {
-      type: String,
-      enum: ["Completed", "Ongoing", "Planned"],
-      default: "Completed",
+      type: DataTypes.ENUM("Completed", "Ongoing", "Planned"),
+      defaultValue: "Completed",
     },
-    thumbnailImage: { type: String, default: "" },
-    galleryImages: [{ type: String }],
-    demoVideoLinks: [{ type: String }],
-    liveProjectUrl: { type: String, default: "" },
-    featured: { type: Boolean, default: false },
+    thumbnailImage: {
+      type: DataTypes.STRING,
+      defaultValue: "",
+    },
+    galleryImages: {
+      type: DataTypes.TEXT,
+      defaultValue: "[]",
+      get() {
+        const rawValue = this.getDataValue("galleryImages");
+        try {
+          return rawValue ? JSON.parse(rawValue) : [];
+        } catch {
+          return [];
+        }
+      },
+      set(value) {
+        this.setDataValue("galleryImages", JSON.stringify(value || []));
+      },
+    },
+    demoVideoLinks: {
+      type: DataTypes.TEXT,
+      defaultValue: "[]",
+      get() {
+        const rawValue = this.getDataValue("demoVideoLinks");
+        try {
+          return rawValue ? JSON.parse(rawValue) : [];
+        } catch {
+          return [];
+        }
+      },
+      set(value) {
+        this.setDataValue("demoVideoLinks", JSON.stringify(value || []));
+      },
+    },
+    liveProjectUrl: {
+      type: DataTypes.STRING,
+      defaultValue: "",
+    },
+    featured: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
+    },
     visibility: {
-      type: String,
-      enum: ["Public", "Private"],
-      default: "Public",
+      type: DataTypes.ENUM("Public", "Private"),
+      defaultValue: "Public",
     },
-    published: { type: Boolean, default: true },
-    techStack: [{ type: String }],
+    published: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: true,
+    },
+    techStack: {
+      type: DataTypes.TEXT,
+      defaultValue: "[]",
+      get() {
+        const rawValue = this.getDataValue("techStack");
+        try {
+          return rawValue ? JSON.parse(rawValue) : [];
+        } catch {
+          return [];
+        }
+      },
+      set(value) {
+        this.setDataValue("techStack", JSON.stringify(value || []));
+      },
+    },
   },
-  { timestamps: true },
+  {
+    timestamps: true,
+  }
 );
 
-export default mongoose.model("Project", projectSchema);
+// Association
+Project.belongsToMany(User, {
+  through: "ProjectTeamMembers",
+  as: "teamMembers",
+  foreignKey: "projectId",
+  otherKey: "userId",
+});
+User.belongsToMany(Project, {
+  through: "ProjectTeamMembers",
+  as: "projects",
+  foreignKey: "userId",
+  otherKey: "projectId",
+});
+
+export default Project;

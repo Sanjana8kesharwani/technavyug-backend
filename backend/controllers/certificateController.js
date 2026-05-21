@@ -1,32 +1,83 @@
 import crypto from "crypto";
 import QRCode from "qrcode";
+import { Op } from "sequelize";
 import Certificate from "../models/Certificate.js";
+import User from "../models/User.js";
 import asyncHandler from "../utils/asyncHandler.js";
 import ApiError from "../utils/apiError.js";
 import ApiResponse from "../utils/apiResponse.js";
 import { logAction } from "../utils/auditLogger.js";
 
+const mapCert = (cert) => {
+  if (!cert) return null;
+  const data = cert.toJSON ? cert.toJSON() : cert;
+  // Map backend fields to frontend expectations
+  const formatted = {
+    id: data.id,
+    _id: data.id,
+    title: data.certificateTitle,
+    organization: data.issuingOrganization,
+    issueDate: data.issueDate,
+    verified: data.verified,
+    category: data.category,
+    verificationUrl: data.verificationUrl,
+    preview: data.certificateFile,
+    ...data,
+  };
+  if (formatted.user && typeof formatted.user === "object") {
+    formatted.userId = {
+      ...formatted.user,
+      _id: formatted.user.id,
+    };
+    delete formatted.user;
+  }
+  return formatted;
+};
+
+const mapUser = (user) => {
+  if (!user) return null;
+  const data = user.toJSON ? user.toJSON() : user;
+  return { ...data, _id: data.id };
+};
+
 export const getCertificates = asyncHandler(async (req, res) => {
   const filter = {};
   if (req.query.search) {
-    const re = { $regex: req.query.search, $options: "i" };
-    filter.$or = [{ certificateTitle: re }, { certificateId: re }];
+    filter[Op.or] = [
+      { certificateTitle: { [Op.like]: `%${req.query.search}%` } },
+      { certificateId: { [Op.like]: `%${req.query.search}%` } },
+    ];
   }
   if (req.query.category) filter.category = req.query.category;
 
-  const certs = await Certificate.find(filter)
-    .populate("userId", "fullName email")
-    .sort("-issueDate");
-  res.json(new ApiResponse(200, certs, "Certificates fetched"));
+  const certs = await Certificate.findAll({
+    where: filter,
+    include: [
+      {
+        model: User,
+        as: "user",
+        attributes: ["fullName", "email"],
+      },
+    ],
+    order: [["issueDate", "DESC"]],
+  });
+
+  const formatted = certs.map(mapCert);
+  res.json(new ApiResponse(200, formatted, "Certificates fetched"));
 });
 
 export const getCertificate = asyncHandler(async (req, res) => {
-  const cert = await Certificate.findById(req.params.id).populate(
-    "userId",
-    "fullName email",
-  );
+  const cert = await Certificate.findByPk(req.params.id, {
+    include: [
+      {
+        model: User,
+        as: "user",
+        attributes: ["fullName", "email"],
+      },
+    ],
+  });
   if (!cert) throw new ApiError(404, "Certificate not found");
-  res.json(new ApiResponse(200, cert, "Certificate fetched"));
+  res.json(new ApiResponse(200, mapCert(cert), "Certificate fetched"));
 });
 
 export const createCertificate = asyncHandler(async (req, res) => {
@@ -45,34 +96,31 @@ export const createCertificate = asyncHandler(async (req, res) => {
   }
 
   const cert = await Certificate.create(data);
-  await logAction(req.admin._id, "CREATE", "Certificate", cert._id, {
+  await logAction(req.admin.id, "CREATE", "Certificate", cert.id, {
     certificateId: cert.certificateId,
   });
-  res.status(201).json(new ApiResponse(201, cert, "Certificate created"));
+  res.status(201).json(new ApiResponse(201, mapCert(cert), "Certificate created"));
 });
 
 export const updateCertificate = asyncHandler(async (req, res) => {
-  let cert = await Certificate.findById(req.params.id);
+  const cert = await Certificate.findByPk(req.params.id);
   if (!cert) throw new ApiError(404, "Certificate not found");
 
   const data = { ...req.body };
   if (req.file) data.certificateFile = req.file.secure_url || req.file.path;
 
-  cert = await Certificate.findByIdAndUpdate(req.params.id, data, {
-    new: true,
-    runValidators: true,
-  });
-  await logAction(req.admin._id, "UPDATE", "Certificate", cert._id, {
+  await cert.update(data);
+  await logAction(req.admin.id, "UPDATE", "Certificate", cert.id, {
     certificateId: cert.certificateId,
   });
-  res.json(new ApiResponse(200, cert, "Certificate updated"));
+  res.json(new ApiResponse(200, mapCert(cert), "Certificate updated"));
 });
 
 export const deleteCertificate = asyncHandler(async (req, res) => {
-  const cert = await Certificate.findById(req.params.id);
+  const cert = await Certificate.findByPk(req.params.id);
   if (!cert) throw new ApiError(404, "Certificate not found");
-  await cert.deleteOne();
-  await logAction(req.admin._id, "DELETE", "Certificate", cert._id, {
+  await cert.destroy();
+  await logAction(req.admin.id, "DELETE", "Certificate", cert.id, {
     certificateId: cert.certificateId,
   });
   res.json(new ApiResponse(200, {}, "Certificate deleted"));
@@ -80,8 +128,15 @@ export const deleteCertificate = asyncHandler(async (req, res) => {
 
 export const verifyCertificate = asyncHandler(async (req, res) => {
   const cert = await Certificate.findOne({
-    certificateId: req.params.certificateId,
-  }).populate("userId", "fullName email designation profilePhoto");
+    where: { certificateId: req.params.certificateId },
+    include: [
+      {
+        model: User,
+        as: "user",
+        attributes: ["fullName", "email", "designation", "profilePhoto"],
+      },
+    ],
+  });
 
   if (!cert) {
     return res
@@ -101,7 +156,7 @@ export const verifyCertificate = asyncHandler(async (req, res) => {
           preview: cert.certificateFile,
           certificateId: cert.certificateId,
           category: cert.category,
-          user: cert.userId,
+          user: mapUser(cert.user),
         },
       },
       "Certificate is Valid",
