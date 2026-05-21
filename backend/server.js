@@ -13,6 +13,8 @@ import projectRoutes from "./routes/projectRoutes.js";
 import certificateRoutes from "./routes/certificateRoutes.js";
 import dashboardRoutes from "./routes/dashboardRoutes.js";
 import auditLogRoutes from "./routes/auditLogRoutes.js";
+import activityRoutes from "./routes/activityRoutes.js";
+import analyticsRoutes from "./routes/analyticsRoutes.js";
 
 const app = express();
 
@@ -48,6 +50,8 @@ app.use("/api/projects", projectRoutes);
 app.use("/api/certificates", certificateRoutes);
 app.use("/api/dashboard", dashboardRoutes);
 app.use("/api/audit-logs", auditLogRoutes);
+app.use("/api/activity", activityRoutes);
+app.use("/api/analytics", analyticsRoutes);
 
 app.get("/", (_req, res) => {
   res.json({ success: true, message: "Devfolio API is running" });
